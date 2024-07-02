@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">First week ui kit</string>
+    <string name="search">Поиск</string>
+    <string name="avatar">Avatar</string>
+    <string name="button">Button</string>
+    <string name="linePeople">Будь первым</string>
+    <string name="numberOfSubs"> человек</string>
+    <string name="meetingIsOver">Закончилась</string>
+    <string name="bot_nav_meetings">Встречи</string>
+    <string name="bot_nav_community">Сообщества</string>
+    <string name="bot_nav_more">Еще</string>
+    <string name="all_meetings">Все встречи</string>
+    <string name="active_meetings">Активные</string>
+</resources>
