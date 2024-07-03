@@ -21,5 +21,6 @@ internal val baseLightPalette = Colors(
     gradient1 = Gradient1,
     gradient2 = Gradient2,
     gradientColorBackground = GradientColorBackground,
-    disabledColorForTab = DisabledColorForTab
+    disabledColorForTab = DisabledColorForTab,
+    neutralColorForTopBar = NeutralColorForTopBar
 )

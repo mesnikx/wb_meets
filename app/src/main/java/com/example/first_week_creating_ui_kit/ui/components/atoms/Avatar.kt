@@ -43,6 +43,7 @@ fun CustomAvatar(
     isEditable: Boolean = false,
     haveBorder: Boolean = false,
     size: Dp = 100.dp,
+    backgroundColor: Color = AppTheme.colors.neutralColorBackground
 ) {
     Box(
         modifier = modifier
@@ -57,7 +58,7 @@ fun CustomAvatar(
                         .fillMaxSize()
                         .align(Alignment.Center)
                         .clip(CircleShape)
-                        .background(AppTheme.colors.neutralColorBackground)
+                        .background(backgroundColor)
                 ) {
                     if (imageUri == null) {
                         Image(

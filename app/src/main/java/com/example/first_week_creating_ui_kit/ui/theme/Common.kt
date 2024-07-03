@@ -19,6 +19,7 @@ data class Colors(
     val neutralColorDivider: Color,
     val neutralColorBackground: Color,
     val neutralColorSecondaryBackground: Color,
+    val neutralColorForTopBar: Color,
     val accentError: Color,
     val accentWarning: Color,
     val accentSuccess: Color,
@@ -26,7 +27,7 @@ data class Colors(
     val gradient1: Brush,
     val gradient2: Brush,
     val gradientColorBackground: Color,
-    val disabledColorForTab: Color
+    val disabledColorForTab: Color,
     )
 
 enum class ColorStyle() {

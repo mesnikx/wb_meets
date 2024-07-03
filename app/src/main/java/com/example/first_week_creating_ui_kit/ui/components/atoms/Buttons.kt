@@ -8,14 +8,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,6 +38,8 @@ fun CustomButton(
     text: String = stringResource(id = R.string.button),
     onClick: () -> Unit = {},
     isEnabled: Boolean = true,
+    ifHaveIcon: Boolean = false,
+    icon: Int = R.drawable.ic_nav_dot,
     shape: Shape = RoundedCornerShape(30.dp),
     type: ButtonType = ButtonType.Primary,
 ) {
@@ -86,11 +91,19 @@ fun CustomButton(
                 modifier = modifier
                     .padding(AppTheme.dimens.padding8dp)
             ) {
-                Text(
-                    text,
-                    style = AppTheme.typo.subtitle2,
-                    textAlign = TextAlign.Center
-                )
+                if (ifHaveIcon) {
+                    Icon(
+                        painter = painterResource(id = icon),
+                        contentDescription = null,
+                        Modifier.align(Alignment.CenterVertically)
+                    )
+                } else {
+                    Text(
+                        text,
+                        style = AppTheme.typo.subtitle2,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
 
@@ -141,7 +154,7 @@ fun MyApp() {
         )
 
         CustomButton(
-            
+
             type = ButtonType.Primary,
             isEnabled = false,
             modifier = Modifier

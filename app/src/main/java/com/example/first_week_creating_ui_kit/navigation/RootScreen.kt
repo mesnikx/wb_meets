@@ -38,6 +38,8 @@ import com.example.first_week_creating_ui_kit.navigation.utils.Navigator
 import com.example.first_week_creating_ui_kit.ui.components.screens.AllMeetingScreen
 import com.example.first_week_creating_ui_kit.ui.components.screens.CommunityScreen
 import com.example.first_week_creating_ui_kit.ui.components.screens.MoreScreen
+import com.example.first_week_creating_ui_kit.ui.components.screens.MyMeetingScreen
+import com.example.first_week_creating_ui_kit.ui.components.screens.ProfileScreen
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.firstweek_lessonfirst.R
 
@@ -113,7 +115,7 @@ fun RootScreen() {
                                         Image(
                                             painter = painterResource(id = screen.icon),
                                             contentDescription = null,
-                                            modifier = Modifier.size(32.dp)
+                                            modifier = Modifier.size(32.dp),
                                         )
                                     }
                                 }
@@ -137,7 +139,12 @@ fun RootScreen() {
                 composable(route = Routes.More.SCREEN_ROUTE_MORE) {
                     MoreScreen()
                 }
-
+                composable(route= Routes.More.SCREEN_ROUTE_PROFILE) {
+                    ProfileScreen()
+                }
+                composable(route = Routes.More.SCREE_ROUTE_MY_MEETING) {
+                    MyMeetingScreen()
+                }
             }
         }
     }

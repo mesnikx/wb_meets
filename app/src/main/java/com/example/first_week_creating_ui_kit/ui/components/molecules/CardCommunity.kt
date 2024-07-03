@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -18,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.example.first_week_creating_ui_kit.ui.components.atoms.AvatarType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomAvatar
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
+import com.example.first_week_creating_ui_kit.ui.utils.Community
 import com.example.first_week_creating_ui_kit.ui.utils.toFormattedString
 import com.example.firstweek_lessonfirst.R
 
@@ -77,8 +80,23 @@ fun CardCommunity(
     }
 }
 
+@Composable
+fun ShowCardCommunity(communities: List<Community>) {
+    LazyColumn {
+        items(communities) { community ->
+            CardCommunity(
+                title = community.title,
+                numberOfSubs = community.numberOfSubs,
+                imageUrl = community.imageUrl,
+                modifier = Modifier.padding(AppTheme.dimens.padding4dp)
+            )
+
+        }
+    }
+}
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun ShowCardCommunity() {
+fun PreviewCardCommunity() {
     CardCommunity(title = "Design", numberOfSubs = 10000)
 }

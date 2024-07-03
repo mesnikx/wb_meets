@@ -135,4 +135,24 @@ object AppTypo {
             trim = LineHeightStyle.Trim.None
         )
     )
+    val usernameText = TextStyle(
+        fontFamily = SFDisplayPro,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 24.sp,
+        lineHeight = 24.sp,
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Center,
+            trim = LineHeightStyle.Trim.None
+        )
+    )
+    val usernamePhoneNumber = TextStyle(
+        fontFamily = SFDisplayPro,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 20.sp,
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Center,
+            trim = LineHeightStyle.Trim.None
+        )
+    )
 }

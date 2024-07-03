@@ -19,6 +19,7 @@ val NeutralColorDisabled = Color(0xFFADB5BD)
 val NeutralColorDivider = Color(0xFFEDEDED)
 val NeutralColorBackground = Color(0xFFF7F7FC)
 val NeutralColorSecondaryBackground = Color(0xFFF7F7FC)
+val NeutralColorForTopBar = Color(0xFFFFFFFF)
 //Accent colors
 val AccentError = Color(0xFFE94242)
 val AccentWarning = Color(0xFFFDCF41)

@@ -11,4 +11,7 @@
     <string name="bot_nav_more">Еще</string>
     <string name="all_meetings">Все встречи</string>
     <string name="active_meetings">Активные</string>
+    <string name="my_meetings">Мои встречи</string>
+    <string name="meeting_planned">Запланировано</string>
+    <string name="meeting_gone">Уже прошли</string>
 </resources>
