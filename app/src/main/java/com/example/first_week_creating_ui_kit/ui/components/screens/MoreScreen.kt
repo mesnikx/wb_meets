@@ -7,13 +7,11 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -31,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.example.first_week_creating_ui_kit.navigation.utils.LocalNavigator
 import com.example.first_week_creating_ui_kit.ui.components.atoms.AvatarType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomAvatar
+import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomTopBar
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.ProfileData
 import com.example.firstweek_lessonfirst.R
@@ -47,24 +46,7 @@ fun MoreScreen() {
     )
     Scaffold(
         topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(
-                    horizontal = AppTheme.dimens.padding24dp,
-                    vertical = AppTheme.dimens.padding12dp
-                ),
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.bot_nav_more),
-                        style = AppTheme.typo.subtitle1,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentWidth(align = Alignment.Start)
-                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = AppTheme.colors.neutralColorForTopBar,
-                )
-            )
+            CustomTopBar(titleText = R.string.bot_nav_more)
         },
         content = { innerPadding ->
             Column(
@@ -73,10 +55,10 @@ fun MoreScreen() {
                     .padding(
                         top = innerPadding.calculateTopPadding(),
                         bottom = 160.dp + innerPadding.calculateBottomPadding(),
-                        start = AppTheme.dimens.padding16dp + innerPadding.calculateStartPadding(
+                        start = AppTheme.dimens.paddingXLarge + innerPadding.calculateStartPadding(
                             LayoutDirection.Ltr
                         ),
-                        end = AppTheme.dimens.padding16dp + innerPadding.calculateEndPadding(
+                        end = AppTheme.dimens.paddingXLarge + innerPadding.calculateEndPadding(
                             LayoutDirection.Ltr
                         )
                     )
@@ -91,9 +73,9 @@ fun MoreScreen() {
                     },
                     modifier = Modifier
                         .padding(
-                            bottom = AppTheme.dimens.padding12dp,
-                            start = AppTheme.dimens.padding4dp,
-                            top = AppTheme.dimens.padding4dp
+                            bottom = AppTheme.dimens.paddingLarge,
+                            start = AppTheme.dimens.paddingSmall,
+                            top = AppTheme.dimens.paddingSmall
                         )
                         .fillMaxWidth()
                 ) {
@@ -109,13 +91,13 @@ fun MoreScreen() {
                                 text = "${myUser.name} ${myUser.surname}",
                                 style = AppTheme.typo.bodyText1,
                                 color = AppTheme.colors.neutralColorFont,
-                                modifier = Modifier.padding(start = AppTheme.dimens.padding20dp)
+                                modifier = Modifier.padding(start = AppTheme.dimens.paddingXXLarge)
                             )
                             Text(
                                 text = myUser.phoneNumber,
                                 style = AppTheme.typo.metadata1,
                                 color = AppTheme.colors.neutralColorSecondaryText,
-                                modifier = Modifier.padding(start = AppTheme.dimens.padding20dp)
+                                modifier = Modifier.padding(start = AppTheme.dimens.paddingXXLarge)
                             )
 
                         }
@@ -138,9 +120,9 @@ fun MoreScreen() {
                     },
                     modifier = Modifier
                         .padding(
-                            bottom = AppTheme.dimens.padding12dp,
-                            start = AppTheme.dimens.padding4dp,
-                            top = AppTheme.dimens.padding4dp
+                            bottom = AppTheme.dimens.paddingLarge,
+                            start = AppTheme.dimens.paddingSmall,
+                            top = AppTheme.dimens.paddingSmall
                         )
                         .fillMaxWidth()
                 ) {
@@ -154,7 +136,7 @@ fun MoreScreen() {
                                 text = stringResource(id = R.string.my_meetings),
                                 style = AppTheme.typo.bodyText1,
                                 color = AppTheme.colors.neutralColorFont,
-                                modifier = Modifier.padding(start = AppTheme.dimens.padding8dp)
+                                modifier = Modifier.padding(start = AppTheme.dimens.paddingMedium)
                             )
                         }
                         Icon(

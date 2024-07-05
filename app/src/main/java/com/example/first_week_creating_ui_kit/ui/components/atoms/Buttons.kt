@@ -60,7 +60,7 @@ fun CustomButton(
                 ),
                 shape = shape,
                 modifier = modifier
-                    .padding(AppTheme.dimens.padding8dp),
+                    .padding(AppTheme.dimens.paddingMedium),
             ) {
                 Text(
                     text,
@@ -89,7 +89,7 @@ fun CustomButton(
                 shape = shape,
                 interactionSource = interactionSource,
                 modifier = modifier
-                    .padding(AppTheme.dimens.padding8dp)
+                    .padding(AppTheme.dimens.paddingMedium)
             ) {
                 if (ifHaveIcon) {
                     Icon(
@@ -119,7 +119,7 @@ fun CustomButton(
                 shape = shape,
                 interactionSource = interactionSource,
                 modifier = modifier
-                    .padding(AppTheme.dimens.padding8dp)
+                    .padding(AppTheme.dimens.paddingMedium)
 
             ) {
                 Text(

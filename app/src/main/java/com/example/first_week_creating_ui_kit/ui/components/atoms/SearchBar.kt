@@ -49,12 +49,12 @@ fun CustomSearchBar(
             .height(height)
             .fillMaxWidth()
             .shadow(
-                elevation = AppTheme.dimens.padding4dp,
-                shape = RoundedCornerShape(AppTheme.dimens.padding4dp)
+                elevation = AppTheme.dimens.paddingSmall,
+                shape = RoundedCornerShape(AppTheme.dimens.paddingSmall)
             )
             .background(
                 color = AppTheme.colors.neutralColorBackground,
-                shape = RoundedCornerShape(AppTheme.dimens.padding4dp)
+                shape = RoundedCornerShape(AppTheme.dimens.paddingSmall)
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -74,7 +74,7 @@ fun CustomSearchBar(
                 Icon(
                     modifier = modifier
                         .fillMaxSize()
-                        .padding(AppTheme.dimens.padding8dp),
+                        .padding(AppTheme.dimens.paddingMedium),
                     painter = painterResource(id = R.drawable.ic_search),
                     contentDescription = stringResource(id = R.string.search),
                     tint = AppTheme.colors.neutralColorFont
@@ -83,7 +83,7 @@ fun CustomSearchBar(
                 Icon(
                     modifier = modifier
                         .fillMaxSize()
-                        .padding(AppTheme.dimens.padding8dp),
+                        .padding(AppTheme.dimens.paddingMedium),
                     painter = painterResource(id = R.drawable.ic_search),
                     contentDescription = stringResource(R.string.search),
                     tint = AppTheme.colors.neutralColorDisabled

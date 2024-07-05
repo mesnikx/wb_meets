@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
@@ -44,7 +43,7 @@ fun CardMeeting(
         onClick = onCLick,
         modifier = modifier
             .padding(
-                bottom = AppTheme.dimens.padding16dp,
+                bottom = AppTheme.dimens.paddingXLarge,
             )
             .fillMaxWidth()
     ) {
@@ -54,8 +53,8 @@ fun CardMeeting(
                 imageUri = imageUrl,
                 size = 48.dp,
                 modifier = Modifier.padding(
-                    bottom = AppTheme.dimens.padding20dp,
-                    end = AppTheme.dimens.padding12dp
+                    bottom = AppTheme.dimens.paddingXXLarge,
+                    end = AppTheme.dimens.paddingLarge
                 )
             )
             Column {
@@ -95,11 +94,11 @@ fun CardMeeting(
                     color = AppTheme.colors.neutralColorSecondaryText,
                     modifier = Modifier.fillMaxWidth()
                 )
-                Row(modifier = Modifier.padding(top = AppTheme.dimens.padding4dp)) {
+                Row(modifier = Modifier.padding(top = AppTheme.dimens.paddingSmall)) {
                     chips.forEach { name ->
                         CustomChip(
                             text = name,
-                            modifier = Modifier.padding(end = AppTheme.dimens.padding4dp)
+                            modifier = Modifier.padding(end = AppTheme.dimens.paddingSmall)
                         )
                     }
                 }
@@ -108,8 +107,8 @@ fun CardMeeting(
         HorizontalDivider(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = AppTheme.dimens.padding12dp),
-            thickness = AppTheme.dimens.padding2dp / 2,
+                .padding(top = AppTheme.dimens.paddingLarge),
+            thickness = AppTheme.dimens.paddingXSmall / 2,
             color = AppTheme.colors.neutralColorDivider
         )
     }
@@ -126,7 +125,7 @@ fun ShowCardMeeting(meetings: List<Meeting>) {
                 isOver = meeting.isOver,
                 imageUrl = meeting.imageUrl,
                 chips = meeting.chips,
-                modifier = Modifier.padding((AppTheme.dimens.padding4dp))
+                modifier = Modifier.padding((AppTheme.dimens.paddingSmall))
             )
         }
     }
@@ -142,21 +141,21 @@ fun PreviewCardMeeting() {
                 title = "Developers meeting",
                 dateAndPlace = "27.06.2024 - Moscow",
                 isOver = true,
-                modifier = Modifier.padding(AppTheme.dimens.padding4dp)
+                modifier = Modifier.padding(AppTheme.dimens.paddingSmall)
             )
         }
         item {
             CardMeeting(
                 title = "Kotlin Con",
                 dateAndPlace = "29.08.2024",
-                modifier = Modifier.padding(AppTheme.dimens.padding4dp)
+                modifier = Modifier.padding(AppTheme.dimens.paddingSmall)
             )
         }
         item {
             CardMeeting(
                 title = "Mobius Fall",
                 dateAndPlace = "20.11.2024",
-                modifier = Modifier.padding(AppTheme.dimens.padding4dp),
+                modifier = Modifier.padding(AppTheme.dimens.paddingSmall),
                 imageUrl = "https://sun9-57.userapi.com/impg/Umm90jen_qIn5iswC26Eg5B_WK3A1FhY5j3npA/8YSlbgn5oIo.jpg?size=600x600&quality=95&sign=7d019a27e80fa0c004065b3bcde32cea&type=album"
             )
         }
@@ -164,7 +163,7 @@ fun PreviewCardMeeting() {
             CardMeeting(
                 title = "Mobius Fall",
                 dateAndPlace = "20.11.2024",
-                modifier = Modifier.padding(AppTheme.dimens.padding4dp),
+                modifier = Modifier.padding(AppTheme.dimens.paddingSmall),
                 chips = listOf("C++", "Kazan"),
                 imageUrl = "https://sun9-57.userapi.com/impg/Umm90jen_qIn5iswC26Eg5B_WK3A1FhY5j3npA/8YSlbgn5oIo.jpg?size=600x600&quality=95&sign=7d019a27e80fa0c004065b3bcde32cea&type=album"
             )
@@ -173,7 +172,7 @@ fun PreviewCardMeeting() {
             CardMeeting(
                 title = "Mobius Fall",
                 dateAndPlace = "20.11.2024",
-                modifier = Modifier.padding(AppTheme.dimens.padding4dp),
+                modifier = Modifier.padding(AppTheme.dimens.paddingSmall),
                 imageUrl = "https://sun9-57.userapi.com/impg/Umm90jen_qIn5iswC26Eg5B_WK3A1FhY5j3npA/8YSlbgn5oIo.jpg?size=600x600&quality=95&sign=7d019a27e80fa0c004065b3bcde32cea&type=album"
             )
         }
@@ -182,7 +181,7 @@ fun PreviewCardMeeting() {
                 title = "Kotlin Copenhagen Conf",
                 dateAndPlace = "25.04.2003 - Copenhagen",
                 isOver = true,
-                modifier = Modifier.padding(AppTheme.dimens.padding4dp),
+                modifier = Modifier.padding(AppTheme.dimens.paddingSmall),
                 imageUrl = "https://kotlinconf.com/static/04144ed7b4514acc601a3cd340807378/37a55/global-desktop.png"
             )
         }
@@ -190,7 +189,7 @@ fun PreviewCardMeeting() {
             CardMeeting(
                 title = "DroidCon Berlin",
                 dateAndPlace = "4-6.07.2024 - Berlin",
-                modifier = Modifier.padding(AppTheme.dimens.padding4dp),
+                modifier = Modifier.padding(AppTheme.dimens.paddingSmall),
                 imageUrl = "https://yt3.googleusercontent.com/ytc/AIdro_ksXZpIZNSuDbS_jm08lJvkxJzGhZJreQpryI3G-xNdMbU=s900-c-k-c0x00ffffff-no-rj"
             )
         }
@@ -198,7 +197,7 @@ fun PreviewCardMeeting() {
             CardMeeting(
                 title = "DroidCon Berlin",
                 dateAndPlace = "4-6.07.2024 - Berlin",
-                modifier = Modifier.padding(AppTheme.dimens.padding4dp),
+                modifier = Modifier.padding(AppTheme.dimens.paddingSmall),
                 imageUrl = "https://yt3.googleusercontent.com/ytc/AIdro_ksXZpIZNSuDbS_jm08lJvkxJzGhZJreQpryI3G-xNdMbU=s900-c-k-c0x00ffffff-no-rj"
             )
         }

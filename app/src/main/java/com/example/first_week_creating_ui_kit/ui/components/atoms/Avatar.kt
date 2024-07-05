@@ -86,7 +86,7 @@ fun CustomAvatar(
                         onClick = onClick,
                         modifier = Modifier
                             .align(Alignment.BottomEnd)
-                            .padding(AppTheme.dimens.padding4dp)
+                            .padding(AppTheme.dimens.paddingSmall)
                             .fillMaxSize(0.24f)
 
                     ) {
@@ -106,16 +106,16 @@ fun CustomAvatar(
                     modifier = Modifier
                         .align(Alignment.Center)
                         .background(Color.Transparent)
-                        .clip(RoundedCornerShape(AppTheme.dimens.padding16dp))
+                        .clip(RoundedCornerShape(AppTheme.dimens.paddingXLarge))
                 ) {
                     if (imageUri != null) {
                         GlideImage(
                             modifier = Modifier
-                                .clip(RoundedCornerShape(AppTheme.dimens.padding16dp))
+                                .clip(RoundedCornerShape(AppTheme.dimens.paddingXLarge))
                                 .then(
                                     if (haveBorder) Modifier.border(
-                                        width = AppTheme.dimens.padding2dp,
-                                        shape = RoundedCornerShape(AppTheme.dimens.padding16dp),
+                                        width = AppTheme.dimens.paddingXSmall,
+                                        shape = RoundedCornerShape(AppTheme.dimens.paddingXLarge),
                                         color = AppTheme.colors.gradientColorBackground
                                     ) else Modifier
                                 ),
@@ -126,7 +126,7 @@ fun CustomAvatar(
                     } else {
                         Image(
                             modifier = Modifier
-                                .clip(RoundedCornerShape(AppTheme.dimens.padding16dp)),
+                                .clip(RoundedCornerShape(AppTheme.dimens.paddingXLarge)),
                             painter = painterResource(R.drawable.ava_orange),
                             contentDescription = stringResource(R.string.avatar),
                             contentScale = ContentScale.Crop
@@ -156,12 +156,12 @@ fun CustomAvatar(
 
 @Composable
 fun MyApp2() {
-    Column(modifier = Modifier.padding(AppTheme.dimens.padding16dp)) {
+    Column(modifier = Modifier.padding(AppTheme.dimens.paddingXLarge)) {
         CustomAvatar(
             type = AvatarType.AvatarProfile,
             isEditable = true,
             modifier = Modifier
-                .padding(bottom = AppTheme.dimens.padding16dp)
+                .padding(bottom = AppTheme.dimens.paddingXLarge)
         )
 
         CustomAvatar(
@@ -169,7 +169,7 @@ fun MyApp2() {
             isEditable = false,
             haveBorder = false,
             modifier = Modifier
-                .padding(bottom = AppTheme.dimens.padding16dp)
+                .padding(bottom = AppTheme.dimens.paddingXLarge)
         )
 
         CustomAvatar(
@@ -177,7 +177,7 @@ fun MyApp2() {
             imageUri = "https://avatars.dzeninfra.ru/get-zen_doc/1592433/pub_613232f67916e7006acd81cc_613238bd39f2cf24c3cb3303/scale_1200",
             isEditable = true,
             modifier = Modifier
-                .padding(bottom = AppTheme.dimens.padding16dp)
+                .padding(bottom = AppTheme.dimens.paddingXLarge)
         )
     }
 }

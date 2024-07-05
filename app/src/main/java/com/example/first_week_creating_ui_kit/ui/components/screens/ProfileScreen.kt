@@ -28,6 +28,7 @@ import com.example.first_week_creating_ui_kit.ui.components.atoms.AvatarType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.ButtonType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomAvatar
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomButton
+import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomTopBar
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.ProfileData
 import com.example.firstweek_lessonfirst.R
@@ -43,43 +44,10 @@ fun ProfileScreen() {
     )
     Scaffold(
         topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(
-                    horizontal = AppTheme.dimens.padding24dp,
-                    vertical = AppTheme.dimens.padding12dp
-                ),
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.bot_nav_meetings),
-                        modifier = Modifier.wrapContentSize(),
-                        style = AppTheme.typo.subtitle1
-                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = AppTheme.colors.neutralColorForTopBar,
-                ),
-                actions = {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_nav_edit),
-                        contentDescription = null,
-                        modifier = Modifier.wrapContentSize()
-                    )
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = {},
-                        modifier = Modifier
-                            .size(AppTheme.dimens.padding24dp)
-
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_nav_back),
-                            contentDescription = stringResource(R.string.avatar),
-                            tint = AppTheme.colors.neutralColorFont
-                        )
-                    }
-
-                }
+            CustomTopBar(
+                titleText = R.string.bot_nav_meetings,
+                navIcon = R.drawable.ic_nav_back,
+                actionIcon = R.drawable.ic_nav_edit
             )
         },
         content = { innerPadding ->
@@ -89,10 +57,10 @@ fun ProfileScreen() {
                     .padding(
                         top = innerPadding.calculateTopPadding(),
                         bottom = 52.dp + innerPadding.calculateBottomPadding(),
-                        start = AppTheme.dimens.padding24dp + innerPadding.calculateStartPadding(
+                        start = AppTheme.dimens.paddingXXXLarge + innerPadding.calculateStartPadding(
                             LayoutDirection.Ltr
                         ),
-                        end = AppTheme.dimens.padding24dp + innerPadding.calculateEndPadding(
+                        end = AppTheme.dimens.paddingXXXLarge + innerPadding.calculateEndPadding(
                             LayoutDirection.Ltr
                         )
                     ),
@@ -111,16 +79,16 @@ fun ProfileScreen() {
                     text = "${myUser.name} ${myUser.surname}",
                     style = AppTheme.typo.usernameText,
                     color = AppTheme.colors.neutralColorFont,
-                    modifier = Modifier.padding(top = AppTheme.dimens.padding20dp)
+                    modifier = Modifier.padding(top = AppTheme.dimens.paddingXXLarge)
                 )
                 Text(
                     text = myUser.phoneNumber,
                     style = AppTheme.typo.usernamePhoneNumber,
                     color = AppTheme.colors.neutralColorSecondaryText,
-                    modifier = Modifier.padding(top = AppTheme.dimens.padding4dp)
+                    modifier = Modifier.padding(top = AppTheme.dimens.paddingSmall)
                 )
                 Row(
-                    modifier = Modifier.padding(end = AppTheme.dimens.padding12dp)
+                    modifier = Modifier.padding(end = AppTheme.dimens.paddingLarge)
                 ) {
                     CustomButton(
                         type = ButtonType.Secondary,

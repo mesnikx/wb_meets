@@ -40,9 +40,9 @@ fun CardCommunity(
         onClick = onClick,
         modifier = modifier
             .padding(
-                bottom = AppTheme.dimens.padding12dp,
-                start = AppTheme.dimens.padding4dp,
-                top = AppTheme.dimens.padding4dp
+                bottom = AppTheme.dimens.paddingLarge,
+                start = AppTheme.dimens.paddingSmall,
+                top = AppTheme.dimens.paddingSmall
             )
             .fillMaxWidth()
     ) {
@@ -52,8 +52,8 @@ fun CardCommunity(
                 imageUri = imageUrl,
                 size = 48.dp,
                 modifier = Modifier.padding(
-                    bottom = AppTheme.dimens.padding12dp,
-                    end = AppTheme.dimens.padding12dp
+                    bottom = AppTheme.dimens.paddingLarge,
+                    end = AppTheme.dimens.paddingLarge
                 )
             )
             Column {
@@ -74,7 +74,7 @@ fun CardCommunity(
         HorizontalDivider(
             modifier = Modifier
                 .fillMaxWidth(),
-            thickness = AppTheme.dimens.padding2dp / 2,
+            thickness = AppTheme.dimens.paddingXSmall / 2,
             color = AppTheme.colors.neutralColorDivider
         )
     }
@@ -88,7 +88,7 @@ fun ShowCardCommunity(communities: List<Community>) {
                 title = community.title,
                 numberOfSubs = community.numberOfSubs,
                 imageUrl = community.imageUrl,
-                modifier = Modifier.padding(AppTheme.dimens.padding4dp)
+                modifier = Modifier.padding(AppTheme.dimens.paddingSmall)
             )
 
         }

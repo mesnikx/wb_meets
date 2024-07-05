@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomSearchBar
+import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardCommunity
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.Community
@@ -68,24 +69,7 @@ fun CommunityScreen() {
     )
     Scaffold(
         topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(
-                    horizontal = AppTheme.dimens.padding24dp,
-                    vertical = AppTheme.dimens.padding12dp
-                ),
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.bot_nav_community),
-                        style = AppTheme.typo.subtitle1,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentWidth(align = Alignment.Start)
-                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = AppTheme.colors.neutralColorForTopBar,
-                )
-            )
+            CustomTopBar(titleText = R.string.bot_nav_community)
         },
         content = { innerPadding ->
             Column(
@@ -94,10 +78,10 @@ fun CommunityScreen() {
                     .padding(
                         top = innerPadding.calculateTopPadding(),
                         bottom = 52.dp + innerPadding.calculateBottomPadding(),
-                        start = AppTheme.dimens.padding24dp + innerPadding.calculateStartPadding(
+                        start = AppTheme.dimens.paddingXXXLarge + innerPadding.calculateStartPadding(
                             LayoutDirection.Ltr
                         ),
-                        end = AppTheme.dimens.padding24dp + innerPadding.calculateEndPadding(
+                        end = AppTheme.dimens.paddingXXXLarge + innerPadding.calculateEndPadding(
                             LayoutDirection.Ltr
                         )
                     )

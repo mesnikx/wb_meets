@@ -24,8 +24,8 @@ fun CustomChip(
                 RoundedCornerShape(40.dp)
             )
             .padding(
-                horizontal = AppTheme.dimens.padding8dp,
-                vertical = AppTheme.dimens.padding2dp
+                horizontal = AppTheme.dimens.paddingMedium,
+                vertical = AppTheme.dimens.paddingXSmall
             )
     ) {
         Text(
@@ -41,9 +41,9 @@ fun CustomChip(
 @Composable
 fun ShowCustomChips() {
     Row {
-        CustomChip(text = "Python", modifier = Modifier.padding(AppTheme.dimens.padding4dp))
-        CustomChip(text = "Moscow", modifier = Modifier.padding(AppTheme.dimens.padding4dp))
-        CustomChip(text = "Junior", modifier = Modifier.padding(AppTheme.dimens.padding4dp))
+        CustomChip(text = "Python", modifier = Modifier.padding(AppTheme.dimens.paddingSmall))
+        CustomChip(text = "Moscow", modifier = Modifier.padding(AppTheme.dimens.paddingSmall))
+        CustomChip(text = "Junior", modifier = Modifier.padding(AppTheme.dimens.paddingSmall))
     }
 
 

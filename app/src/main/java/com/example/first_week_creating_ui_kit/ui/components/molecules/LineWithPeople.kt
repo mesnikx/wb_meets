@@ -26,7 +26,7 @@ fun LineWithPeople(
 ) {
     Box(
         modifier = modifier
-            .padding(AppTheme.dimens.padding2dp),
+            .padding(AppTheme.dimens.paddingXSmall),
         contentAlignment = Alignment.Center
     ) {
         if (avatars.isEmpty()) {
@@ -58,7 +58,7 @@ fun LineWithPeople(
                 }
                 if (avatars.size > avatarsNum) {
                     Text(
-                        modifier = Modifier.padding(start = AppTheme.dimens.padding8dp),
+                        modifier = Modifier.padding(start = AppTheme.dimens.paddingMedium),
                         text = "+${avatars.size - avatarsNum}",
                         style = AppTheme.typo.bodyText1,
                         color = AppTheme.colors.neutralColorFont

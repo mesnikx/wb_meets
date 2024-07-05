@@ -1,6 +1,5 @@
 package com.example.first_week_creating_ui_kit.ui.components.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -26,7 +25,6 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -34,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardMeeting
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.Meeting
@@ -84,36 +83,9 @@ fun MyMeetingScreen() {
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(
-                    horizontal = AppTheme.dimens.padding24dp,
-                    vertical = AppTheme.dimens.padding12dp
-                ),
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.my_meetings),
-                        modifier = Modifier.wrapContentSize(),
-                        style = AppTheme.typo.subtitle1
-                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = AppTheme.colors.neutralColorForTopBar,
-                ),
-                navigationIcon = {
-                    IconButton(
-                        onClick = {},
-                        modifier = Modifier
-                            .wrapContentSize()
-
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_nav_back),
-                            contentDescription = stringResource(R.string.avatar),
-                            tint = AppTheme.colors.neutralColorFont
-                        )
-                    }
-
-                }
+            CustomTopBar(
+                titleText = R.string.my_meetings,
+                navIcon = R.drawable.ic_nav_back
             )
         },
         content = { innerPadding ->
@@ -123,10 +95,10 @@ fun MyMeetingScreen() {
                     .padding(
                         top = innerPadding.calculateTopPadding(),
                         bottom = 52.dp + innerPadding.calculateBottomPadding(),
-                        start = AppTheme.dimens.padding24dp + innerPadding.calculateStartPadding(
+                        start = AppTheme.dimens.paddingXXXLarge + innerPadding.calculateStartPadding(
                             LayoutDirection.Ltr
                         ),
-                        end = AppTheme.dimens.padding24dp + innerPadding.calculateEndPadding(
+                        end = AppTheme.dimens.paddingXXXLarge + innerPadding.calculateEndPadding(
                             LayoutDirection.Ltr
                         )
                     )
@@ -136,7 +108,7 @@ fun MyMeetingScreen() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            bottom = AppTheme.dimens.padding16dp
+                            bottom = AppTheme.dimens.paddingXLarge
                         ),
                     containerColor = Color.Transparent,
                     divider = {},
