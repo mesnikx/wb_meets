@@ -1,4 +1,4 @@
-package com.example.first_week_creating_ui_kit.ui.components.screens
+package com.example.first_week_creating_ui_kit.ui.components.screens.more
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,15 +7,11 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,9 +28,9 @@ import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomAvatar
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomTopBar
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.ProfileData
+import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
 import com.example.firstweek_lessonfirst.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MoreScreen() {
     val navigator = LocalNavigator.current
@@ -42,7 +38,7 @@ fun MoreScreen() {
         name = "Иван",
         surname = "Иванов",
         phoneNumber = "+7 999 999-99-99",
-        imageProfile = null
+        imageProfile = "https://img3.fonwall.ru/o/bl/white-black-monochrome-shadow-azlb.jpeg?auto=compress&amp;fit=resize&amp;w=1200&amp;display=large",
     )
     Scaffold(
         topBar = {
@@ -54,7 +50,7 @@ fun MoreScreen() {
                     .fillMaxSize()
                     .padding(
                         top = innerPadding.calculateTopPadding(),
-                        bottom = 160.dp + innerPadding.calculateBottomPadding(),
+                        bottom = bottomNavBarPadding.dp + innerPadding.calculateBottomPadding(),
                         start = AppTheme.dimens.paddingXLarge + innerPadding.calculateStartPadding(
                             LayoutDirection.Ltr
                         ),
