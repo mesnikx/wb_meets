@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.first_week_creating_ui_kit.navigation.Routes
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomSearchBar
-import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomTopBar
+import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardCommunity
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
@@ -29,7 +29,7 @@ fun CommunityScreen(navController: NavController) {
     val allCommunities = communityList
     Scaffold(
         topBar = {
-            CustomTopBar(titleText = R.string.bot_nav_community)
+            NavigableTopBar(titleText = R.string.bot_nav_community)
         },
         content = { innerPadding ->
             Column(

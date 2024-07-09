@@ -29,7 +29,7 @@ import androidx.navigation.NavController
 import com.example.first_week_creating_ui_kit.navigation.RootScreen
 import com.example.first_week_creating_ui_kit.navigation.Routes
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomSearchBar
-import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomTopBar
+import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardMeeting
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
@@ -47,7 +47,7 @@ fun AllMeetingScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            CustomTopBar(
+            NavigableTopBar(
                 titleText = R.string.bot_nav_meetings,
                 actionIcon = R.drawable.ic_nav_add
             )
