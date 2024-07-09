@@ -19,11 +19,9 @@ import androidx.compose.ui.unit.dp
 import com.example.first_week_creating_ui_kit.CommunityDetailsViewModel
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.CardMeeting
-import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardMeeting
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.Community
 import com.example.first_week_creating_ui_kit.ui.utils.ExpandableText
-import com.example.first_week_creating_ui_kit.ui.utils.Meeting
 import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
 import com.example.firstweek_lessonfirst.R
 
