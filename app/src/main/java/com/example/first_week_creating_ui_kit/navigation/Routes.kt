@@ -1,6 +1,9 @@
 package com.example.first_week_creating_ui_kit.navigation
 
 object Routes {
+    object LottieSplashScreen {
+        const val SCREEN_ROUTE = "splash_screen_route"
+    }
     object AllMeeting {
         const val SCREEN_ROUTE = "all_meeting_screen_route"
         const val SCREEN_DETAIL_ROUTE = "all_meeting_screen_detail_route"

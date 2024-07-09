@@ -1,5 +1,6 @@
 package com.example.first_week_creating_ui_kit.navigation
 
+import SplashScreen
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -114,24 +115,33 @@ fun BottomNavigationBar(navController: NavController, screens: List<BottomNavMen
 }
 
 @Composable
-fun AppNavHost(navController: NavHostController) {
+fun AppNavHost(navController: NavHostController, bottomBarState: BottomBarState) {
     NavHost(
         navController = navController,
-        startDestination = Routes.AllMeeting.SCREEN_ROUTE
+        startDestination = Routes.LottieSplashScreen.SCREEN_ROUTE
     ) {
+        composable(Routes.LottieSplashScreen.SCREEN_ROUTE) {
+            bottomBarState.isVisible.value = false
+            SplashScreen(navController)
+        }
         composable(Routes.AllMeeting.SCREEN_ROUTE) {
+            bottomBarState.isVisible.value = true
             AllMeetingScreen(navController)
         }
         composable(Routes.Community.SCREEN_ROUTE) {
+            bottomBarState.isVisible.value = true
             CommunityScreen(navController)
         }
         composable(Routes.More.SCREEN_ROUTE_MORE) {
+            bottomBarState.isVisible.value = true
             MoreScreen()
         }
         composable(Routes.More.SCREEN_ROUTE_PROFILE) {
+            bottomBarState.isVisible.value = true
             ProfileScreen()
         }
         composable(Routes.More.SCREEN_ROUTE_MY_MEETING) {
+            bottomBarState.isVisible.value = true
             MyMeetingScreen(navController)
         }
         composable(
@@ -140,6 +150,7 @@ fun AppNavHost(navController: NavHostController) {
                 type = NavType.StringType
             })
         ) { backStackEntry ->
+            bottomBarState.isVisible.value = true
             val meetingId =
                 backStackEntry.arguments?.getString(Routes.AllMeeting.SCREEN_DETAIL_ID_KEY)
                     ?: return@composable
@@ -153,6 +164,7 @@ fun AppNavHost(navController: NavHostController) {
                 type = NavType.StringType
             })
         ) { backStackEntry ->
+            bottomBarState.isVisible.value = true
             val communityId =
                 backStackEntry.arguments?.getString(Routes.Community.SCREEN_DETAIL_ID_KEY)
                     ?: return@composable
@@ -166,6 +178,7 @@ fun AppNavHost(navController: NavHostController) {
                 type = NavType.StringType
             })
         ) { backStackEntry ->
+            bottomBarState.isVisible.value = true
             val meetingId =
                 backStackEntry.arguments?.getString(Routes.More.SCREEN_DETAIL_ID_KEY)
                     ?: return@composable
@@ -195,7 +208,7 @@ fun RootScreenContent(
             SnackbarHost(hostState = snackbarHostState)
         }
     ) {
-        AppNavHost(navController = navController)
+        AppNavHost(navController = navController, bottomBarState)
     }
 }
 

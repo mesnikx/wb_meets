@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.first_week_creating_ui_kit.navigation.Routes
-import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomTopBar
+import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardMeeting
 import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.AllMeetingScreens
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
@@ -48,7 +48,7 @@ fun MyMeetingScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            CustomTopBar(
+            NavigableTopBar(
                 titleText = R.string.my_meetings,
                 navIcon = R.drawable.ic_nav_back
             )

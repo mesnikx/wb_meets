@@ -41,7 +41,7 @@ import com.example.first_week_creating_ui_kit.MeetingDetailsViewModel
 import com.example.first_week_creating_ui_kit.ui.components.atoms.ButtonType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomButton
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomChip
-import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomTopBar
+import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.LineWithPeople
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.ExpandableText
@@ -63,7 +63,7 @@ fun AllMeetingScreenDetails(
     if (card.meetingId != Meeting.getDefault().meetingId) {
         Scaffold(
             topBar = {
-                CustomTopBar(
+                NavigableTopBar(
                     titleText = card.title,
                     navIcon = R.drawable.ic_nav_back,
                     actionIcon = if (card.isOver) R.drawable.ic_meeting_is_over else null,

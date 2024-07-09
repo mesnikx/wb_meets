@@ -18,7 +18,7 @@ import com.example.first_week_creating_ui_kit.ui.components.atoms.AvatarType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.ButtonType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomAvatar
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomButton
-import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomTopBar
+import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.ProfileData
 import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
@@ -34,7 +34,7 @@ fun ProfileScreen() {
     )
     Scaffold(
         topBar = {
-            CustomTopBar(
+            NavigableTopBar(
                 titleText = R.string.bot_nav_meetings,
                 navIcon = R.drawable.ic_nav_back,
                 actionIcon = R.drawable.ic_nav_edit

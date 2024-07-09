@@ -19,7 +19,7 @@ import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTopBar(
+fun NavigableTopBar(
     titleText: Any,
     modifier: Modifier = Modifier,
     navIcon: Int? = null,
