@@ -31,7 +31,7 @@ sealed class BottomNavMenuItem(
         routes = listOf(
             Routes.More.SCREEN_ROUTE_MORE,
             Routes.More.SCREEN_ROUTE_PROFILE,
-            Routes.More.SCREE_ROUTE_MY_MEETING
+            Routes.More.SCREEN_ROUTE_MY_MEETING
         )
     )
 }

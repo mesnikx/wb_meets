@@ -14,4 +14,9 @@
     <string name="my_meetings">Мои встречи</string>
     <string name="meeting_planned">Запланировано</string>
     <string name="meeting_gone">Уже прошли</string>
+    <string name="meeting_not_found">Встреч не найдено</string>
+    <string name="community_not_found">Сообщество не найдено</string>
+    <string name="i_will_come_next_time">Схожу в другой раз</string>
+    <string name="i_will_come">Пойду на встречу!</string>
+    <string name="meeting_of_community">Встречи сообщества</string>
 </resources>
