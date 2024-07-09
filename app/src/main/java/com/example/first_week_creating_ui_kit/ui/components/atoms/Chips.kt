@@ -21,7 +21,7 @@ fun CustomChip(
         modifier = modifier
             .background(
                 AppTheme.colors.brandColorBackground,
-                RoundedCornerShape(40.dp)
+                RoundedCornerShape(AppTheme.dimens.paddingXXLarge * 2)
             )
             .padding(
                 horizontal = AppTheme.dimens.paddingMedium,

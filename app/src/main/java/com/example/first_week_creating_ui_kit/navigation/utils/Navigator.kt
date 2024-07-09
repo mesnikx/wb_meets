@@ -22,6 +22,6 @@ class Navigator(
         navController.navigate(Routes.More.SCREEN_ROUTE_PROFILE)
     }
     fun navigateToMyMeetingsScreen() {
-        navController.navigate(Routes.More.SCREE_ROUTE_MY_MEETING)
+        navController.navigate(Routes.More.SCREEN_ROUTE_MY_MEETING)
     }
 }

@@ -1,5 +1,6 @@
 package com.example.first_week_creating_ui_kit.ui.components.molecules
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -116,11 +117,12 @@ fun CardMeeting(
 }
 
 @Composable
-fun ShowCardMeeting(meetings: List<Meeting>) {
+fun ShowCardMeeting(meetings: List<Meeting>, onMeetingClick: (String) -> Unit) {
     LazyColumn {
         items(meetings) { meeting ->
             CardMeeting(
                 title = meeting.title,
+                onCLick = { onMeetingClick(meeting.meetingId) },
                 dateAndPlace = meeting.dateAndPlace,
                 isOver = meeting.isOver,
                 imageUrl = meeting.imageUrl,

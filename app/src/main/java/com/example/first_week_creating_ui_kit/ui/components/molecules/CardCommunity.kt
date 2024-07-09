@@ -81,16 +81,16 @@ fun CardCommunity(
 }
 
 @Composable
-fun ShowCardCommunity(communities: List<Community>) {
+fun ShowCardCommunity(communities: List<Community>, onCommunityClick: (String) -> Unit) {
     LazyColumn {
         items(communities) { community ->
             CardCommunity(
                 title = community.title,
+                onClick = { onCommunityClick(community.communityId) },
                 numberOfSubs = community.numberOfSubs,
                 imageUrl = community.imageUrl,
                 modifier = Modifier.padding(AppTheme.dimens.paddingSmall)
             )
-
         }
     }
 }
