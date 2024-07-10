@@ -32,7 +32,7 @@ fun SplashScreen(navController: NavHostController) {
         )
         LaunchedEffect(Unit) {
             delay(3000)
-            navController.navigate(Routes.AllMeeting.SCREEN_ROUTE) {
+            navController.navigate(Routes.AuthorizationScreen.SCREEN_PHONE_NUMBER_ROUTE) {
                 popUpTo(Routes.LottieSplashScreen.SCREEN_ROUTE) { inclusive = true }
             }
         }

@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -36,6 +37,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.first_week_creating_ui_kit.AuthorizationScreensViewModel
 import com.example.first_week_creating_ui_kit.CommunityDetailsViewModel
 import com.example.first_week_creating_ui_kit.MeetingDetailsViewModel
 import com.example.first_week_creating_ui_kit.navigation.utils.BottomBarState
@@ -45,6 +47,8 @@ import com.example.first_week_creating_ui_kit.navigation.utils.LocalSnackbarHost
 import com.example.first_week_creating_ui_kit.navigation.utils.Navigator
 import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.AllMeetingScreen
 import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.AllMeetingScreenDetails
+import com.example.first_week_creating_ui_kit.ui.components.screens.autorization.screens.EnterCodeScreen
+import com.example.first_week_creating_ui_kit.ui.components.screens.autorization.screens.EnterPhoneNumberScreen
 import com.example.first_week_creating_ui_kit.ui.components.screens.community.CommunityScreen
 import com.example.first_week_creating_ui_kit.ui.components.screens.community.CommunityScreenDetails
 import com.example.first_week_creating_ui_kit.ui.components.screens.more.MoreScreen
@@ -123,6 +127,18 @@ fun AppNavHost(navController: NavHostController, bottomBarState: BottomBarState)
         composable(Routes.LottieSplashScreen.SCREEN_ROUTE) {
             bottomBarState.isVisible.value = false
             SplashScreen(navController)
+        }
+        composable(Routes.AuthorizationScreen.SCREEN_PHONE_NUMBER_ROUTE) {
+            bottomBarState.isVisible.value = false
+            val viewModel = AuthorizationScreensViewModel()
+            EnterPhoneNumberScreen(viewModel)
+
+        }
+        composable(Routes.AuthorizationScreen.SCREEN_CODE_NUMBER_ROUTE) {
+            bottomBarState.isVisible.value = false
+            val viewModel = AuthorizationScreensViewModel()
+            EnterCodeScreen(viewModel)
+
         }
         composable(Routes.AllMeeting.SCREEN_ROUTE) {
             bottomBarState.isVisible.value = true

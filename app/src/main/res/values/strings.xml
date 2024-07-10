@@ -19,4 +19,10 @@
     <string name="i_will_come_next_time">Схожу в другой раз</string>
     <string name="i_will_come">Пойду на встречу!</string>
     <string name="meeting_of_community">Встречи сообщества</string>
+    <string name="enter_phone_number">Введите номер телефона</string>
+    <string name="we_will_sent_code">Мы вышлем код подтверждения \n на указанный номер</string>
+    <string name="continue_button">Продолжить</string>
+    <string name="enter_code">Введите код</string>
+    <string name="we_sent_code_for_number">Отправили код на номер</string>
+    <string name="sent_code_again">Запросить код повторно</string>
 </resources>

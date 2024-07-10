@@ -5,7 +5,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -61,8 +63,8 @@ fun CustomButton(
                 ),
                 shape = shape,
                 modifier = modifier
-                    .fillMaxSize()
-                    .padding(AppTheme.dimens.paddingMedium),
+                    .fillMaxWidth()
+                    .padding(vertical = AppTheme.dimens.paddingLarge),
             ) {
                 Text(
                     text = text,
@@ -91,7 +93,8 @@ fun CustomButton(
                 shape = shape,
                 interactionSource = interactionSource,
                 modifier = modifier
-                    .padding(AppTheme.dimens.paddingMedium)
+                    .fillMaxWidth()
+                    .padding(vertical = AppTheme.dimens.paddingLarge)
             ) {
                 if (ifHaveIcon) {
                     Icon(
@@ -121,7 +124,8 @@ fun CustomButton(
                 shape = shape,
                 interactionSource = interactionSource,
                 modifier = modifier
-                    .padding(AppTheme.dimens.paddingMedium)
+                    .fillMaxWidth()
+                    .padding(vertical = AppTheme.dimens.paddingLarge)
 
             ) {
                 Text(
