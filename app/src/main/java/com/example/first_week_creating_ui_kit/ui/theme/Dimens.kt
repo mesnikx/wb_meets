@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.dp
 data class Dimens(
     val paddingXSmall: Dp,
     val paddingSmall: Dp,
+    val paddingXMedium: Dp,
     val paddingMedium: Dp,
     val paddingLarge: Dp,
     val paddingXLarge: Dp,
@@ -18,9 +19,11 @@ data class Dimens(
 internal val dimensions = Dimens(
     paddingXSmall = 2.dp,
     paddingSmall = 4.dp,
+    paddingXMedium = 6.dp,
     paddingMedium = 8.dp,
     paddingLarge = 12.dp,
     paddingXLarge = 16.dp,
     paddingXXLarge = 20.dp,
     paddingXXXLarge = 24.dp,
+
 )

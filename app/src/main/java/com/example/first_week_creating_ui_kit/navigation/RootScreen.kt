@@ -1,5 +1,6 @@
 package com.example.first_week_creating_ui_kit.navigation
 
+import SplashScreen
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,25 +26,37 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.first_week_creating_ui_kit.AuthorizationScreensViewModel
+import com.example.first_week_creating_ui_kit.CommunityDetailsViewModel
+import com.example.first_week_creating_ui_kit.MeetingDetailsViewModel
 import com.example.first_week_creating_ui_kit.navigation.utils.BottomBarState
 import com.example.first_week_creating_ui_kit.navigation.utils.LocalBottomBarState
 import com.example.first_week_creating_ui_kit.navigation.utils.LocalNavigator
 import com.example.first_week_creating_ui_kit.navigation.utils.LocalSnackbarHost
 import com.example.first_week_creating_ui_kit.navigation.utils.Navigator
-import com.example.first_week_creating_ui_kit.ui.components.screens.AllMeetingScreen
-import com.example.first_week_creating_ui_kit.ui.components.screens.CommunityScreen
-import com.example.first_week_creating_ui_kit.ui.components.screens.MoreScreen
-import com.example.first_week_creating_ui_kit.ui.components.screens.MyMeetingScreen
-import com.example.first_week_creating_ui_kit.ui.components.screens.ProfileScreen
+import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.AllMeetingScreen
+import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.AllMeetingScreenDetails
+import com.example.first_week_creating_ui_kit.ui.components.screens.autorization.screens.EnterCodeScreen
+import com.example.first_week_creating_ui_kit.ui.components.screens.autorization.screens.EnterPhoneNumberScreen
+import com.example.first_week_creating_ui_kit.ui.components.screens.community.CommunityScreen
+import com.example.first_week_creating_ui_kit.ui.components.screens.community.CommunityScreenDetails
+import com.example.first_week_creating_ui_kit.ui.components.screens.more.MoreScreen
+import com.example.first_week_creating_ui_kit.ui.components.screens.more.MyMeetingScreen
+import com.example.first_week_creating_ui_kit.ui.components.screens.more.MyMeetingScreenDetails
+import com.example.first_week_creating_ui_kit.ui.components.screens.more.ProfileScreen
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
+import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarSize
 import com.example.firstweek_lessonfirst.R
 
 
@@ -96,7 +109,7 @@ fun BottomNavigationBar(navController: NavController, screens: List<BottomNavMen
                         Image(
                             painter = painterResource(id = screen.icon),
                             contentDescription = null,
-                            modifier = Modifier.size(32.dp),
+                            modifier = Modifier.size(bottomNavBarSize.dp),
                         )
                     }
                 }
@@ -106,26 +119,90 @@ fun BottomNavigationBar(navController: NavController, screens: List<BottomNavMen
 }
 
 @Composable
-fun AppNavHost(navController: NavHostController) {
+fun AppNavHost(navController: NavHostController, bottomBarState: BottomBarState) {
     NavHost(
         navController = navController,
-        startDestination = Routes.AllMeeting.SCREEN_ROUTE
+        startDestination = Routes.LottieSplashScreen.SCREEN_ROUTE
     ) {
+        composable(Routes.LottieSplashScreen.SCREEN_ROUTE) {
+            bottomBarState.isVisible.value = false
+            SplashScreen(navController)
+        }
+        composable(Routes.AuthorizationScreen.SCREEN_PHONE_NUMBER_ROUTE) {
+            bottomBarState.isVisible.value = false
+            val viewModel = AuthorizationScreensViewModel()
+            EnterPhoneNumberScreen(viewModel)
+
+        }
+        composable(Routes.AuthorizationScreen.SCREEN_CODE_NUMBER_ROUTE) {
+            bottomBarState.isVisible.value = false
+            val viewModel = AuthorizationScreensViewModel()
+            EnterCodeScreen(viewModel)
+
+        }
         composable(Routes.AllMeeting.SCREEN_ROUTE) {
-            AllMeetingScreen()
+            bottomBarState.isVisible.value = true
+            AllMeetingScreen(navController)
         }
         composable(Routes.Community.SCREEN_ROUTE) {
-            CommunityScreen()
+            bottomBarState.isVisible.value = true
+            CommunityScreen(navController)
         }
         composable(Routes.More.SCREEN_ROUTE_MORE) {
+            bottomBarState.isVisible.value = true
             MoreScreen()
         }
         composable(Routes.More.SCREEN_ROUTE_PROFILE) {
+            bottomBarState.isVisible.value = true
             ProfileScreen()
         }
-        composable(Routes.More.SCREE_ROUTE_MY_MEETING) {
-            MyMeetingScreen()
+        composable(Routes.More.SCREEN_ROUTE_MY_MEETING) {
+            bottomBarState.isVisible.value = true
+            MyMeetingScreen(navController)
         }
+        composable(
+            route = "${Routes.AllMeeting.SCREEN_DETAIL_ROUTE}/{${Routes.AllMeeting.SCREEN_DETAIL_ID_KEY}}",
+            arguments = listOf(navArgument(Routes.AllMeeting.SCREEN_DETAIL_ID_KEY) {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            bottomBarState.isVisible.value = true
+            val meetingId =
+                backStackEntry.arguments?.getString(Routes.AllMeeting.SCREEN_DETAIL_ID_KEY)
+                    ?: return@composable
+            val viewModel = MeetingDetailsViewModel()
+            viewModel.initializeAllId(meetingId)
+            AllMeetingScreenDetails(viewModel, navController)
+        }
+        composable(
+            route = "${Routes.Community.SCREEN_DETAIL_ROUTE}/{${Routes.Community.SCREEN_DETAIL_ID_KEY}}",
+            arguments = listOf(navArgument(Routes.Community.SCREEN_DETAIL_ID_KEY) {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            bottomBarState.isVisible.value = true
+            val communityId =
+                backStackEntry.arguments?.getString(Routes.Community.SCREEN_DETAIL_ID_KEY)
+                    ?: return@composable
+            val viewModel = CommunityDetailsViewModel()
+            viewModel.initializeCommunity(communityId)
+            CommunityScreenDetails(viewModel)
+        }
+        composable(
+            route = "${Routes.More.SCREEN_DETAIL_ROUTE}/{${Routes.More.SCREEN_DETAIL_ID_KEY}}",
+            arguments = listOf(navArgument(Routes.More.SCREEN_DETAIL_ID_KEY) {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            bottomBarState.isVisible.value = true
+            val meetingId =
+                backStackEntry.arguments?.getString(Routes.More.SCREEN_DETAIL_ID_KEY)
+                    ?: return@composable
+            val viewModel = MeetingDetailsViewModel()
+            viewModel.initializeMyId(meetingId)
+            MyMeetingScreenDetails(viewModel)
+        }
+
     }
 }
 
@@ -147,7 +224,7 @@ fun RootScreenContent(
             SnackbarHost(hostState = snackbarHostState)
         }
     ) {
-        AppNavHost(navController = navController)
+        AppNavHost(navController = navController, bottomBarState)
     }
 }
 

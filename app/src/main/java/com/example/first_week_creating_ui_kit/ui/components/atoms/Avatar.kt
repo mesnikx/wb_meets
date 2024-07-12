@@ -1,6 +1,5 @@
 package com.example.first_week_creating_ui_kit.ui.components.atoms
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -23,8 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
+import coil.compose.AsyncImage
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.firstweek_lessonfirst.R
 
@@ -33,7 +31,6 @@ sealed interface AvatarType {
     data object AvatarMeeting : AvatarType
 }
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun CustomAvatar(
     type: AvatarType,
@@ -52,7 +49,6 @@ fun CustomAvatar(
     ) {
         when (type) {
             AvatarType.AvatarProfile -> {
-
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -60,26 +56,18 @@ fun CustomAvatar(
                         .clip(CircleShape)
                         .background(backgroundColor)
                 ) {
-                    if (imageUri == null) {
-                        Image(
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .fillMaxSize(0.5f),
-                            painter = painterResource(R.drawable.ic_avatar),
-                            contentDescription = stringResource(R.string.avatar),
-                            contentScale = ContentScale.Fit
-                        )
-                    } else {
-                        GlideImage(
-                            model = imageUri,
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .fillMaxSize(),
-                            contentDescription = stringResource(R.string.avatar),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-
+                    AsyncImage(
+                        model = imageUri,
+                        placeholder = painterResource(R.drawable.ic_avatar),
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .then(
+                                if (imageUri == null) Modifier
+                                    .fillMaxSize(0.5f) else Modifier.fillMaxSize(1f)
+                            ),
+                        contentDescription = stringResource(R.string.avatar),
+                        contentScale = if (imageUri == null) ContentScale.Fit else ContentScale.Crop
+                    )
                 }
                 if (isEditable) {
                     IconButton(
@@ -99,7 +87,6 @@ fun CustomAvatar(
                 }
             }
 
-
             AvatarType.AvatarMeeting -> {
 
                 Box(
@@ -108,51 +95,41 @@ fun CustomAvatar(
                         .background(Color.Transparent)
                         .clip(RoundedCornerShape(AppTheme.dimens.paddingXLarge))
                 ) {
-                    if (imageUri != null) {
-                        GlideImage(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(AppTheme.dimens.paddingXLarge))
-                                .then(
-                                    if (haveBorder) Modifier.border(
-                                        width = AppTheme.dimens.paddingXSmall,
-                                        shape = RoundedCornerShape(AppTheme.dimens.paddingXLarge),
-                                        color = AppTheme.colors.gradientColorBackground
-                                    ) else Modifier
-                                ),
-                            model = imageUri,
+                    AsyncImage(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(AppTheme.dimens.paddingXLarge))
+                            .then(
+                                if (haveBorder) Modifier.border(
+                                    width = AppTheme.dimens.paddingXSmall,
+                                    shape = RoundedCornerShape(AppTheme.dimens.paddingXLarge),
+                                    color = AppTheme.colors.gradientColorBackground
+                                ) else Modifier
+                            ),
+                        model = imageUri,
+                        contentDescription = stringResource(R.string.avatar),
+                        placeholder = painterResource(R.drawable.ava_orange),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+                if (isEditable) {
+                    IconButton(
+                        onClick = onClick,
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .fillMaxSize(0.24f)
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_add),
                             contentDescription = stringResource(R.string.avatar),
-                            contentScale = ContentScale.Crop
+                            tint = AppTheme.colors.neutralColorFont
                         )
-                    } else {
-                        Image(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(AppTheme.dimens.paddingXLarge)),
-                            painter = painterResource(R.drawable.ava_orange),
-                            contentDescription = stringResource(R.string.avatar),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-                    if (isEditable) {
-                        IconButton(
-                            onClick = onClick,
-                            modifier = Modifier
-                                .align(Alignment.BottomEnd)
-                                .fillMaxSize(0.24f)
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_add),
-                                contentDescription = stringResource(R.string.avatar),
-                                tint = AppTheme.colors.neutralColorFont
-                            )
-                        }
                     }
                 }
             }
-
-
         }
     }
 }
+
 
 @Composable
 fun MyApp2() {

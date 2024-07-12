@@ -15,6 +15,9 @@ class Navigator(
     fun navigateMoreScreen() {
         navController.navigate(Routes.More.SCREEN_ROUTE_MORE)
     }
+    fun navigateToEnterCodeScreen() {
+        navController.navigate(Routes.AuthorizationScreen.SCREEN_CODE_NUMBER_ROUTE)
+    }
     fun back() {
         navController.popBackStack()
     }
@@ -22,6 +25,6 @@ class Navigator(
         navController.navigate(Routes.More.SCREEN_ROUTE_PROFILE)
     }
     fun navigateToMyMeetingsScreen() {
-        navController.navigate(Routes.More.SCREE_ROUTE_MY_MEETING)
+        navController.navigate(Routes.More.SCREEN_ROUTE_MY_MEETING)
     }
 }

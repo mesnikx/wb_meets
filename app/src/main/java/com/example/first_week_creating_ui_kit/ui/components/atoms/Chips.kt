@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 
 @Composable
@@ -21,7 +20,7 @@ fun CustomChip(
         modifier = modifier
             .background(
                 AppTheme.colors.brandColorBackground,
-                RoundedCornerShape(40.dp)
+                RoundedCornerShape(AppTheme.dimens.paddingXXLarge * 2)
             )
             .padding(
                 horizontal = AppTheme.dimens.paddingMedium,
