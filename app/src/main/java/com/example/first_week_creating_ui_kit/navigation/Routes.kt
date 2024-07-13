@@ -7,6 +7,7 @@ object Routes {
     object AuthorizationScreen {
         const val SCREEN_PHONE_NUMBER_ROUTE = "phone_number_screen_route"
         const val SCREEN_CODE_NUMBER_ROUTE = "phone_code_screen_route"
+        const val SCREEN_PROFILE_DATA_ROUTE = "enter_profile_data_route"
     }
     object AllMeeting {
         const val SCREEN_ROUTE = "all_meeting_screen_route"

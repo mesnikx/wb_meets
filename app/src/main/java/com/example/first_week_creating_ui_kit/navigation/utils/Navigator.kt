@@ -18,6 +18,9 @@ class Navigator(
     fun navigateToEnterCodeScreen() {
         navController.navigate(Routes.AuthorizationScreen.SCREEN_CODE_NUMBER_ROUTE)
     }
+    fun navigateToEnterProfileDataScreen() {
+        navController.navigate(Routes.AuthorizationScreen.SCREEN_PROFILE_DATA_ROUTE)
+    }
     fun back() {
         navController.popBackStack()
     }
