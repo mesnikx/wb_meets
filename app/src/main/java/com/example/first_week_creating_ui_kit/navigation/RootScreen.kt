@@ -48,6 +48,7 @@ import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.A
 import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.AllMeetingScreenDetails
 import com.example.first_week_creating_ui_kit.ui.components.screens.autorization.screens.EnterCodeScreen
 import com.example.first_week_creating_ui_kit.ui.components.screens.autorization.screens.EnterPhoneNumberScreen
+import com.example.first_week_creating_ui_kit.ui.components.screens.autorization.screens.EnterProfileData
 import com.example.first_week_creating_ui_kit.ui.components.screens.community.CommunityScreen
 import com.example.first_week_creating_ui_kit.ui.components.screens.community.CommunityScreenDetails
 import com.example.first_week_creating_ui_kit.ui.components.screens.more.MoreScreen
@@ -135,9 +136,13 @@ fun AppNavHost(navController: NavHostController, bottomBarState: BottomBarState)
         }
         composable(Routes.AuthorizationScreen.SCREEN_CODE_NUMBER_ROUTE) {
             bottomBarState.isVisible.value = false
-            val viewModel = AuthorizationScreensViewModel()
-            EnterCodeScreen(viewModel)
+            EnterCodeScreen()
 
+        }
+        composable(Routes.AuthorizationScreen.SCREEN_PROFILE_DATA_ROUTE) {
+            bottomBarState.isVisible.value = false
+            val viewModel = AuthorizationScreensViewModel()
+            EnterProfileData(viewModel)
         }
         composable(Routes.AllMeeting.SCREEN_ROUTE) {
             bottomBarState.isVisible.value = true
@@ -153,7 +158,7 @@ fun AppNavHost(navController: NavHostController, bottomBarState: BottomBarState)
         }
         composable(Routes.More.SCREEN_ROUTE_PROFILE) {
             bottomBarState.isVisible.value = true
-            ProfileScreen()
+            ProfileScreen(viewModel = AuthorizationScreensViewModel())
         }
         composable(Routes.More.SCREEN_ROUTE_MY_MEETING) {
             bottomBarState.isVisible.value = true
