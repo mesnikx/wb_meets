@@ -1,5 +1,6 @@
 package com.example.first_week_creating_ui_kit.ui.components.atoms
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -56,18 +57,29 @@ fun CustomAvatar(
                         .clip(CircleShape)
                         .background(backgroundColor)
                 ) {
-                    AsyncImage(
-                        model = imageUri,
-                        placeholder = painterResource(R.drawable.ic_avatar),
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .then(
-                                if (imageUri == null) Modifier
-                                    .fillMaxSize(0.5f) else Modifier.fillMaxSize(1f)
-                            ),
-                        contentDescription = stringResource(R.string.avatar),
-                        contentScale = if (imageUri == null) ContentScale.Fit else ContentScale.Crop
-                    )
+                    if (imageUri != null) {
+                        AsyncImage(
+                            model = imageUri,
+                            placeholder = painterResource(R.drawable.ic_avatar),
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .then(
+                                    Modifier.fillMaxSize(1f)
+                                ),
+                            contentDescription = stringResource(R.string.avatar),
+                            contentScale = ContentScale.Crop
+                        )
+                    } else {
+                        Image(
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .fillMaxSize(0.5f),
+                            painter = painterResource(R.drawable.ic_avatar),
+                            contentDescription = stringResource(R.string.avatar),
+                            contentScale = ContentScale.Fit
+                        )
+                    }
+
                 }
                 if (isEditable) {
                     IconButton(
@@ -95,21 +107,31 @@ fun CustomAvatar(
                         .background(Color.Transparent)
                         .clip(RoundedCornerShape(AppTheme.dimens.paddingXLarge))
                 ) {
-                    AsyncImage(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(AppTheme.dimens.paddingXLarge))
-                            .then(
-                                if (haveBorder) Modifier.border(
-                                    width = AppTheme.dimens.paddingXSmall,
-                                    shape = RoundedCornerShape(AppTheme.dimens.paddingXLarge),
-                                    color = AppTheme.colors.gradientColorBackground
-                                ) else Modifier
-                            ),
-                        model = imageUri,
-                        contentDescription = stringResource(R.string.avatar),
-                        placeholder = painterResource(R.drawable.ava_orange),
-                        contentScale = ContentScale.Crop
-                    )
+                    if (imageUri != null) {
+                        AsyncImage(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(AppTheme.dimens.paddingXLarge))
+                                .then(
+                                    if (haveBorder) Modifier.border(
+                                        width = AppTheme.dimens.paddingXSmall,
+                                        shape = RoundedCornerShape(AppTheme.dimens.paddingXLarge),
+                                        color = AppTheme.colors.gradientColorBackground
+                                    ) else Modifier
+                                ),
+                            model = imageUri,
+                            contentDescription = stringResource(R.string.avatar),
+                            placeholder = painterResource(R.drawable.ava_orange),
+                            contentScale = ContentScale.Crop
+                        )
+                    } else {
+                        Image(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(AppTheme.dimens.paddingXLarge)),
+                            painter = painterResource(R.drawable.ava_orange),
+                            contentDescription = stringResource(R.string.avatar),
+                            contentScale = ContentScale.Crop
+                        )
+                    }
                 }
                 if (isEditable) {
                     IconButton(

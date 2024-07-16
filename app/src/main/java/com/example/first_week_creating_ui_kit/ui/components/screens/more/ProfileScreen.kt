@@ -9,29 +9,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.example.first_week_creating_ui_kit.AuthorizationScreensViewModel
 import com.example.first_week_creating_ui_kit.ui.components.atoms.AvatarType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.ButtonType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomAvatar
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomButton
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.ui.utils.ProfileData
 import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
 import com.example.firstweek_lessonfirst.R
 
 @Composable
-fun ProfileScreen() {
-    val myUser = ProfileData(
-        name = "Иван",
-        surname = "Иванов",
-        phoneNumber = "+7 999 999-99-99",
-        imageProfile = "https://img3.fonwall.ru/o/bl/white-black-monochrome-shadow-azlb.jpeg?auto=compress&amp;fit=resize&amp;w=1200&amp;display=large",
-    )
+fun ProfileScreen(viewModel: AuthorizationScreensViewModel) {
+    val profileData by viewModel.profileData.observeAsState()
     Scaffold(
         topBar = {
             NavigableTopBar(
@@ -58,47 +55,53 @@ fun ProfileScreen() {
             ) {
                 CustomAvatar(
                     type = AvatarType.AvatarProfile,
-                    imageUri = myUser.imageProfile,
+                    imageUri = null,
                     size = 200.dp,
                     backgroundColor = AppTheme.colors.neutralColorDivider,
                     modifier = Modifier
                         .padding(top = AppTheme.dimens.paddingXXXLarge * 2)
                         .align(Alignment.CenterHorizontally)
                 )
-                Text(
-                    text = "${myUser.name} ${myUser.surname}",
-                    style = AppTheme.typo.usernameText,
-                    color = AppTheme.colors.neutralColorFont,
-                    modifier = Modifier.padding(top = AppTheme.dimens.paddingXXLarge)
-                )
-                Text(
-                    text = myUser.phoneNumber,
-                    style = AppTheme.typo.usernamePhoneNumber,
-                    color = AppTheme.colors.neutralColorSecondaryText,
-                    modifier = Modifier.padding(top = AppTheme.dimens.paddingSmall)
-                )
+                profileData?.let { profile ->
+                    Text(
+                        text = "${profile.name} ${profile.surname}",
+                        style = AppTheme.typo.usernameText,
+                        color = AppTheme.colors.neutralColorFont,
+                        modifier = Modifier.padding(top = AppTheme.dimens.paddingXXLarge)
+                    )
+                    Text(
+                        text = profile.phoneNumber,
+                        style = AppTheme.typo.usernamePhoneNumber,
+                        color = AppTheme.colors.neutralColorSecondaryText,
+                        modifier = Modifier.padding(top = AppTheme.dimens.paddingSmall)
+                    )
+                }
                 Row(
                     modifier = Modifier.padding(end = AppTheme.dimens.paddingLarge)
                 ) {
                     CustomButton(
                         type = ButtonType.Secondary,
                         ifHaveIcon = true,
-                        icon = R.drawable.ic_btn_twitter
+                        icon = R.drawable.ic_btn_twitter,
+                        modifier = Modifier.padding(horizontal = AppTheme.dimens.paddingMedium),
                     )
                     CustomButton(
                         type = ButtonType.Secondary,
                         ifHaveIcon = true,
-                        icon = R.drawable.ic_btn_instagram
+                        icon = R.drawable.ic_btn_instagram,
+                        modifier = Modifier.padding(horizontal = AppTheme.dimens.paddingMedium),
                     )
                     CustomButton(
                         type = ButtonType.Secondary,
                         ifHaveIcon = true,
-                        icon = R.drawable.ic_btn_linkedin
+                        icon = R.drawable.ic_btn_linkedin,
+                        modifier = Modifier.padding(horizontal = AppTheme.dimens.paddingMedium),
                     )
                     CustomButton(
                         type = ButtonType.Secondary,
                         ifHaveIcon = true,
-                        icon = R.drawable.ic_btn_facebook
+                        icon = R.drawable.ic_btn_facebook,
+                        modifier = Modifier.padding(horizontal = AppTheme.dimens.paddingMedium),
                     )
                 }
             }
@@ -109,5 +112,5 @@ fun ProfileScreen() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ShowProfileScreen() {
-    ProfileScreen()
+    ProfileScreen(viewModel = AuthorizationScreensViewModel())
 }

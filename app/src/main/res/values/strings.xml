@@ -25,4 +25,8 @@
     <string name="enter_code">Введите код</string>
     <string name="we_sent_code_for_number">Отправили код на номер</string>
     <string name="sent_code_again">Запросить код повторно</string>
+    <string name="profile">Профиль</string>
+    <string name="save_button">Сохранить</string>
+    <string name="enter_name">Имя(обязательно)</string>
+    <string name="enter_surname">Фамилия(опционально)</string>
 </resources>

@@ -27,7 +27,7 @@ private const val PADDING_TOP_FOR_BUTTON = 70
 private const val PHONE_NUMBER = "+7 999 999-99-99"
 
 @Composable
-fun EnterCodeScreen(viewModel: AuthorizationScreensViewModel) {
+fun EnterCodeScreen() {
     val password = remember {
         mutableStateOf("")
     }
@@ -74,7 +74,7 @@ fun EnterCodeScreen(viewModel: AuthorizationScreensViewModel) {
                 .fillMaxWidth()
                 .padding(top = PADDING_TOP_FOR_BUTTON.dp),
             onClick = {
-                navigator.navigateAllMeetingScreen()
+                navigator.navigateToEnterProfileDataScreen()
             }
         )
     }
@@ -84,5 +84,5 @@ fun EnterCodeScreen(viewModel: AuthorizationScreensViewModel) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ShowCodeScreen() {
-    EnterCodeScreen(viewModel = AuthorizationScreensViewModel())
+    EnterCodeScreen()
 }
