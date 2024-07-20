@@ -14,24 +14,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.first_week_creating_ui_kit.AuthorizationScreensViewModel
-import com.example.first_week_creating_ui_kit.navigation.utils.LocalNavigator
+import com.example.first_week_creating_ui_kit.data.ProfileRepoImpl
 import com.example.first_week_creating_ui_kit.ui.components.atoms.ButtonType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomButton
 import com.example.first_week_creating_ui_kit.ui.components.screens.autorization.base.Password
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
+import com.example.first_week_creating_ui_kit.ui.utils.formatPhoneNumber
+import com.example.first_week_creating_ui_kit.viewModels.AuthScreens
+import com.example.first_week_creating_ui_kit.viewModels.AuthorizationScreensViewModel
 import com.example.firstweek_lessonfirst.R
 
 private const val PADDING_TOP_FOR_TEXT = 170
 private const val PADDING_TOP_FOR_BUTTON = 70
-private const val PHONE_NUMBER = "+7 999 999-99-99"
 
 @Composable
-fun EnterCodeScreen() {
+fun EnterCodeScreen(viewModel: AuthorizationScreensViewModel) {
     val password = remember {
         mutableStateOf("")
     }
-    val navigator = LocalNavigator.current
+    val phoneNumber = viewModel.fullPhoneNumber.value
+    val formattedPhoneNumber = formatPhoneNumber(phoneNumber)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -54,7 +56,7 @@ fun EnterCodeScreen() {
 
         )
         Text(
-            text = PHONE_NUMBER,
+            text = formattedPhoneNumber,
             style = AppTheme.typo.bodyText2,
             color = AppTheme.colors.neutralColorFont,
             textAlign = TextAlign.Center,
@@ -74,7 +76,7 @@ fun EnterCodeScreen() {
                 .fillMaxWidth()
                 .padding(top = PADDING_TOP_FOR_BUTTON.dp),
             onClick = {
-                navigator.navigateToEnterProfileDataScreen()
+                viewModel.nextScreen(AuthScreens.EnterProfileDataScreen)
             }
         )
     }
@@ -84,5 +86,5 @@ fun EnterCodeScreen() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ShowCodeScreen() {
-    EnterCodeScreen()
+    EnterCodeScreen(viewModel = AuthorizationScreensViewModel(ProfileRepoImpl()))
 }

@@ -21,12 +21,12 @@ import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBa
 import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardCommunity
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
-import com.example.first_week_creating_ui_kit.ui.utils.communityList
+import com.example.first_week_creating_ui_kit.ui.utils.communityDataLists
 import com.example.firstweek_lessonfirst.R
 
 @Composable
 fun CommunityScreen(navController: NavController) {
-    val allCommunities = communityList
+    val allCommunities = communityDataLists
     Scaffold(
         topBar = {
             NavigableTopBar(titleText = R.string.bot_nav_community)

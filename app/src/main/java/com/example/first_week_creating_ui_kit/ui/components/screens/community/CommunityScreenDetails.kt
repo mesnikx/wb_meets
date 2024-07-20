@@ -16,11 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.example.first_week_creating_ui_kit.CommunityDetailsViewModel
+import com.example.first_week_creating_ui_kit.viewModels.CommunityDetailsViewModel
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.CardMeeting
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.ui.utils.Community
+import com.example.first_week_creating_ui_kit.domain.data.CommunityData
 import com.example.first_week_creating_ui_kit.ui.utils.ExpandableText
 import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
 import com.example.firstweek_lessonfirst.R
@@ -30,10 +30,10 @@ import com.example.firstweek_lessonfirst.R
 fun CommunityScreenDetails(
     viewModel: CommunityDetailsViewModel
 ) {
-    val community = viewModel.community.value
+    val community = viewModel.communityData.value
     val meeting = viewModel.meetings.value
 
-    if (community.communityId != Community.getDefault().communityId) {
+    if (community.communityId != CommunityData.getDefault().communityId) {
         Scaffold(
             topBar = {
                 NavigableTopBar(titleText = community.title)

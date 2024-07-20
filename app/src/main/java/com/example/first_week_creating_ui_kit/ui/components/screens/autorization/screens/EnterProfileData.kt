@@ -17,10 +17,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.example.first_week_creating_ui_kit.AuthorizationScreensViewModel
+import com.example.first_week_creating_ui_kit.viewModels.AuthorizationScreensViewModel
 import com.example.first_week_creating_ui_kit.navigation.utils.LocalNavigator
 import com.example.first_week_creating_ui_kit.ui.components.atoms.AvatarType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.ButtonType
@@ -101,6 +100,7 @@ fun EnterProfileData(viewModel: AuthorizationScreensViewModel) {
                             name,
                             surname
                         )
+                        viewModel.saveProfileData()
                         navigator.navigateAllMeetingScreen()
                     },
                     isEnabled = isButtonEnabled,
@@ -112,10 +112,4 @@ fun EnterProfileData(viewModel: AuthorizationScreensViewModel) {
         }
     )
 
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun PreviewEnterProfileData() {
-    EnterProfileData(viewModel = AuthorizationScreensViewModel())
 }

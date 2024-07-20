@@ -3,11 +3,9 @@ package com.example.first_week_creating_ui_kit.navigation
 import SplashScreen
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -25,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -36,9 +33,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.first_week_creating_ui_kit.AuthorizationScreensViewModel
-import com.example.first_week_creating_ui_kit.CommunityDetailsViewModel
-import com.example.first_week_creating_ui_kit.MeetingDetailsViewModel
 import com.example.first_week_creating_ui_kit.navigation.utils.BottomBarState
 import com.example.first_week_creating_ui_kit.navigation.utils.LocalBottomBarState
 import com.example.first_week_creating_ui_kit.navigation.utils.LocalNavigator
@@ -46,9 +40,7 @@ import com.example.first_week_creating_ui_kit.navigation.utils.LocalSnackbarHost
 import com.example.first_week_creating_ui_kit.navigation.utils.Navigator
 import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.AllMeetingScreen
 import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.AllMeetingScreenDetails
-import com.example.first_week_creating_ui_kit.ui.components.screens.autorization.screens.EnterCodeScreen
-import com.example.first_week_creating_ui_kit.ui.components.screens.autorization.screens.EnterPhoneNumberScreen
-import com.example.first_week_creating_ui_kit.ui.components.screens.autorization.screens.EnterProfileData
+import com.example.first_week_creating_ui_kit.ui.components.screens.autorization.screens.AuthScreen
 import com.example.first_week_creating_ui_kit.ui.components.screens.community.CommunityScreen
 import com.example.first_week_creating_ui_kit.ui.components.screens.community.CommunityScreenDetails
 import com.example.first_week_creating_ui_kit.ui.components.screens.more.MoreScreen
@@ -56,24 +48,48 @@ import com.example.first_week_creating_ui_kit.ui.components.screens.more.MyMeeti
 import com.example.first_week_creating_ui_kit.ui.components.screens.more.MyMeetingScreenDetails
 import com.example.first_week_creating_ui_kit.ui.components.screens.more.ProfileScreen
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarSize
+import com.example.first_week_creating_ui_kit.viewModels.AllMeetingDetailsViewModel
+import com.example.first_week_creating_ui_kit.viewModels.AuthorizationScreensViewModel
+import com.example.first_week_creating_ui_kit.viewModels.CommunityDetailsViewModel
+import com.example.first_week_creating_ui_kit.viewModels.MoreScreenViewModel
+import com.example.first_week_creating_ui_kit.viewModels.MyMeetingScreenDetailsViewModel
 import com.example.firstweek_lessonfirst.R
+import org.koin.androidx.compose.getViewModel
 
 
 @Composable
 fun BottomNavigationBar(navController: NavController, screens: List<BottomNavMenuItem>) {
-    BottomNavigation {
+    BottomNavigation(
+        backgroundColor = AppTheme.colors.neutralColorBackground // Убедитесь, что у вас есть цвет
+    ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
+
         screens.forEach { screen ->
-            val selected =
-                currentDestination?.hierarchy?.any {
-                    it.route in screen.routes
-                } == true
+            val selected = currentDestination?.hierarchy?.any { it.route in screen.routes } == true
+
             BottomNavigationItem(
-                modifier = Modifier
-                    .background(AppTheme.colors.neutralColorBackground),
                 selected = selected,
+                onClick = {
+                    navController.navigate(screen.route) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
+                icon = {
+                    if (!selected) {
+                        Image(
+                            painter = painterResource(id = screen.icon),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .wrapContentSize()
+                                .padding(bottom = AppTheme.dimens.paddingXSmall)
+                        )
+                    }
+                },
                 label = {
                     if (selected) {
                         Column(
@@ -90,29 +106,14 @@ fun BottomNavigationBar(navController: NavController, screens: List<BottomNavMen
                                 contentDescription = null,
                                 modifier = Modifier
                                     .wrapContentSize()
-                                    .padding(top = AppTheme.dimens.paddingSmall)
+                                    .padding(AppTheme.dimens.paddingXSmall)
                             )
                         }
                     }
                 },
-                onClick = {
-                    navController.navigate(screen.route) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
-                        }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                },
-                icon = {
-                    if (!selected) {
-                        Image(
-                            painter = painterResource(id = screen.icon),
-                            contentDescription = null,
-                            modifier = Modifier.size(bottomNavBarSize.dp),
-                        )
-                    }
-                }
+                alwaysShowLabel = false,
+                selectedContentColor = AppTheme.colors.neutralColorFont,
+                unselectedContentColor = AppTheme.colors.disabledColorForTab
             )
         }
     }
@@ -128,25 +129,16 @@ fun AppNavHost(navController: NavHostController, bottomBarState: BottomBarState)
             bottomBarState.isVisible.value = false
             SplashScreen(navController)
         }
-        composable(Routes.AuthorizationScreen.SCREEN_PHONE_NUMBER_ROUTE) {
+        composable(Routes.AuthorizationScreen.SCREEN_AUTH_ROUTE) {
             bottomBarState.isVisible.value = false
-            val viewModel = AuthorizationScreensViewModel()
-            EnterPhoneNumberScreen(viewModel)
+            val viewModel: AuthorizationScreensViewModel = getViewModel()
+            AuthScreen(viewModel)
 
-        }
-        composable(Routes.AuthorizationScreen.SCREEN_CODE_NUMBER_ROUTE) {
-            bottomBarState.isVisible.value = false
-            EnterCodeScreen()
-
-        }
-        composable(Routes.AuthorizationScreen.SCREEN_PROFILE_DATA_ROUTE) {
-            bottomBarState.isVisible.value = false
-            val viewModel = AuthorizationScreensViewModel()
-            EnterProfileData(viewModel)
         }
         composable(Routes.AllMeeting.SCREEN_ROUTE) {
             bottomBarState.isVisible.value = true
-            AllMeetingScreen(navController)
+            val viewModel: AllMeetingDetailsViewModel = getViewModel()
+            AllMeetingScreen(navController, viewModel)
         }
         composable(Routes.Community.SCREEN_ROUTE) {
             bottomBarState.isVisible.value = true
@@ -154,15 +146,18 @@ fun AppNavHost(navController: NavHostController, bottomBarState: BottomBarState)
         }
         composable(Routes.More.SCREEN_ROUTE_MORE) {
             bottomBarState.isVisible.value = true
-            MoreScreen()
+            val viewModel: MoreScreenViewModel = getViewModel()
+            MoreScreen(viewModel)
         }
         composable(Routes.More.SCREEN_ROUTE_PROFILE) {
             bottomBarState.isVisible.value = true
-            ProfileScreen(viewModel = AuthorizationScreensViewModel())
+            val viewModel: MoreScreenViewModel = getViewModel()
+            ProfileScreen(viewModel)
         }
         composable(Routes.More.SCREEN_ROUTE_MY_MEETING) {
             bottomBarState.isVisible.value = true
-            MyMeetingScreen(navController)
+            val viewModel: MyMeetingScreenDetailsViewModel = getViewModel()
+            MyMeetingScreen(navController, viewModel)
         }
         composable(
             route = "${Routes.AllMeeting.SCREEN_DETAIL_ROUTE}/{${Routes.AllMeeting.SCREEN_DETAIL_ID_KEY}}",
@@ -174,7 +169,7 @@ fun AppNavHost(navController: NavHostController, bottomBarState: BottomBarState)
             val meetingId =
                 backStackEntry.arguments?.getString(Routes.AllMeeting.SCREEN_DETAIL_ID_KEY)
                     ?: return@composable
-            val viewModel = MeetingDetailsViewModel()
+            val viewModel: AllMeetingDetailsViewModel = getViewModel()
             viewModel.initializeAllId(meetingId)
             AllMeetingScreenDetails(viewModel, navController)
         }
@@ -188,7 +183,7 @@ fun AppNavHost(navController: NavHostController, bottomBarState: BottomBarState)
             val communityId =
                 backStackEntry.arguments?.getString(Routes.Community.SCREEN_DETAIL_ID_KEY)
                     ?: return@composable
-            val viewModel = CommunityDetailsViewModel()
+            val viewModel: CommunityDetailsViewModel = getViewModel()
             viewModel.initializeCommunity(communityId)
             CommunityScreenDetails(viewModel)
         }
@@ -202,9 +197,9 @@ fun AppNavHost(navController: NavHostController, bottomBarState: BottomBarState)
             val meetingId =
                 backStackEntry.arguments?.getString(Routes.More.SCREEN_DETAIL_ID_KEY)
                     ?: return@composable
-            val viewModel = MeetingDetailsViewModel()
+            val viewModel: MyMeetingScreenDetailsViewModel = getViewModel()
             viewModel.initializeMyId(meetingId)
-            MyMeetingScreenDetails(viewModel)
+            MyMeetingScreenDetails(viewModel, navController)
         }
 
     }

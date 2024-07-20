@@ -31,13 +31,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import com.example.first_week_creating_ui_kit.MeetingDetailsViewModel
+import com.example.first_week_creating_ui_kit.viewModels.AllMeetingDetailsViewModel
 import com.example.first_week_creating_ui_kit.ui.components.atoms.ButtonType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomButton
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomChip
@@ -45,7 +43,7 @@ import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBa
 import com.example.first_week_creating_ui_kit.ui.components.molecules.LineWithPeople
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.ExpandableText
-import com.example.first_week_creating_ui_kit.ui.utils.Meeting
+import com.example.first_week_creating_ui_kit.domain.data.MeetingData
 import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
 import com.example.firstweek_lessonfirst.R
 import me.saket.telephoto.zoomable.rememberZoomableState
@@ -54,13 +52,13 @@ import me.saket.telephoto.zoomable.zoomable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AllMeetingScreenDetails(
-    viewModel: MeetingDetailsViewModel,
+    viewModel: AllMeetingDetailsViewModel,
     navController: NavController
 ) {
     val card = viewModel.card.value
     val mapIsVisible = remember { mutableStateOf(false) }
 
-    if (card.meetingId != Meeting.getDefault().meetingId) {
+    if (card.meetingId != MeetingData.getDefault().meetingId) {
         Scaffold(
             topBar = {
                 NavigableTopBar(
@@ -197,11 +195,3 @@ fun AllMeetingScreenDetails(
 private const val ANIMATION_DURATION = 300
 private const val BACKGROUND_ALPHA = 0.8f
 private const val COLLAPSED_LINE = 8
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun PreviewAllMeetingScreenDetails() {
-    val viewModel = MeetingDetailsViewModel()
-    viewModel.initializeAllId("1")
-    AllMeetingScreenDetails(viewModel = viewModel, navController = rememberNavController())
-}
