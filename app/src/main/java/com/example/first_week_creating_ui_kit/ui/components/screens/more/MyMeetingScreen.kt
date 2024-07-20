@@ -22,29 +22,27 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.first_week_creating_ui_kit.navigation.Routes
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardMeeting
 import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.AllMeetingScreens
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
-import com.example.first_week_creating_ui_kit.ui.utils.myMeetingDataLists
+import com.example.first_week_creating_ui_kit.viewModels.MyMeetingScreenDetailsViewModel
 import com.example.firstweek_lessonfirst.R
 import kotlinx.coroutines.launch
 
 @Composable
-fun MyMeetingScreen(navController: NavController) {
+fun MyMeetingScreen(navController: NavController, viewModel: MyMeetingScreenDetailsViewModel) {
 
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { AllMeetingScreens.entries.size })
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
 
-    val myMeetings = myMeetingDataLists
+    val myMeetings = viewModel.myMeetings
 
     Scaffold(
         topBar = {
@@ -150,11 +148,4 @@ enum class MyMeetingScreens(
         selectedText = R.string.meeting_gone,
         unselectedText = R.string.meeting_gone
     )
-}
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ShowMyMeetingScreen() {
-    MyMeetingScreen(navController = rememberNavController())
 }

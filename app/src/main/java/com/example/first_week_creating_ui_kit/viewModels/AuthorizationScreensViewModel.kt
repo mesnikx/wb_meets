@@ -1,12 +1,17 @@
-package com.example.first_week_creating_ui_kit
+package com.example.first_week_creating_ui_kit.viewModels
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.first_week_creating_ui_kit.domain.data.ProfileData
+import com.example.first_week_creating_ui_kit.domain.repository.ProfileRepo
 import com.example.first_week_creating_ui_kit.ui.utils.Country
 
-class AuthorizationScreensViewModel : ViewModel() {
+class AuthorizationScreensViewModel(
+    private val repository: ProfileRepo
+) : ViewModel() {
+    private var _currentScreen = mutableStateOf(AuthScreens.EnterPhoneNumberScreen)
+    val currentScreen = _currentScreen
     private var _phoneNumber = mutableStateOf("")
     val phoneNumber: State<String> = _phoneNumber
     private var _fullPhoneNumber = mutableStateOf("")
@@ -15,6 +20,14 @@ class AuthorizationScreensViewModel : ViewModel() {
     val selectedCountry: State<Country> = _selectedCountry
     private val _profileData = mutableStateOf(ProfileData.getDefault())
     val profileData: State<ProfileData> = _profileData
+
+    fun saveProfileData() {
+        val profileData = profileData.value.copy(phoneNumber = fullPhoneNumber.value)
+        repository.saveProfileData(profileData)
+    }
+    fun nextScreen(nextScreen: AuthScreens) {
+        _currentScreen.value = nextScreen
+    }
 
     fun updateProfile(name: String, surname: String) {
         _profileData.value = profileData.value.copy(name = name, surname = surname)
@@ -34,5 +47,10 @@ class AuthorizationScreensViewModel : ViewModel() {
         updateFullPhoneNumber()
     }
 
+}
 
+enum class AuthScreens {
+    EnterCodeScreen,
+    EnterPhoneNumberScreen,
+    EnterProfileDataScreen
 }

@@ -1,16 +1,17 @@
-package com.example.first_week_creating_ui_kit
+package com.example.first_week_creating_ui_kit.viewModels
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.first_week_creating_ui_kit.domain.data.CommunityData
 import com.example.first_week_creating_ui_kit.domain.data.MeetingData
-import com.example.first_week_creating_ui_kit.ui.utils.communityDataLists
-import com.example.first_week_creating_ui_kit.ui.utils.meetingDataLists
+import com.example.first_week_creating_ui_kit.domain.repository.CommunityRepo
 
-class CommunityDetailsViewModel : ViewModel() {
-    private val allCommunityList = communityDataLists
-    private val allMeetingList = meetingDataLists
+class CommunityDetailsViewModel(
+    private val repository: CommunityRepo
+) : ViewModel() {
+    private val allCommunityList = repository.getCommunities()
+    private val allMeetingList = repository.getCommunityMeetings()
 
     private val _communityData = mutableStateOf(CommunityData.getDefault())
     val communityData: State<CommunityData> = _communityData

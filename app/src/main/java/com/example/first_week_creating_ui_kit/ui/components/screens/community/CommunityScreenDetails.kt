@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.example.first_week_creating_ui_kit.CommunityDetailsViewModel
+import com.example.first_week_creating_ui_kit.viewModels.CommunityDetailsViewModel
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.CardMeeting
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme

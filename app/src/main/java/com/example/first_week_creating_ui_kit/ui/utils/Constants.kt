@@ -5,9 +5,8 @@ import com.example.first_week_creating_ui_kit.domain.data.MeetingData
 import com.example.first_week_creating_ui_kit.domain.data.ProfileData
 
 const val bottomNavBarPadding = 52
-const val bottomNavBarSize = 32
 
-val myUser = ProfileData(
+var myUser = ProfileData(
     name = "Иван",
     surname = "Иванов",
     phoneNumber = "+7 999 999-99-99",

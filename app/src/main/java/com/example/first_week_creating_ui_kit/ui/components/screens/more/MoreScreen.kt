@@ -19,22 +19,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.first_week_creating_ui_kit.AuthorizationScreensViewModel
 import com.example.first_week_creating_ui_kit.navigation.utils.LocalNavigator
 import com.example.first_week_creating_ui_kit.ui.components.atoms.AvatarType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomAvatar
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.domain.data.ProfileData
 import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
+import com.example.first_week_creating_ui_kit.ui.utils.formatPhoneNumber
+import com.example.first_week_creating_ui_kit.viewModels.MoreScreenViewModel
 import com.example.firstweek_lessonfirst.R
 
 @Composable
-fun MoreScreen(viewModel: AuthorizationScreensViewModel) {
+fun MoreScreen(viewModel: MoreScreenViewModel) {
     val navigator = LocalNavigator.current
     val profileData = viewModel.profileData.value
     Scaffold(
@@ -87,7 +85,7 @@ fun MoreScreen(viewModel: AuthorizationScreensViewModel) {
                                 modifier = Modifier.padding(start = AppTheme.dimens.paddingXXLarge)
                             )
                             Text(
-                                text = profileData.phoneNumber,
+                                text = formatPhoneNumber(profileData.phoneNumber),
                                 style = AppTheme.typo.metadata1,
                                 color = AppTheme.colors.neutralColorSecondaryText,
                                 modifier = Modifier.padding(start = AppTheme.dimens.paddingXXLarge)
@@ -143,10 +141,4 @@ fun MoreScreen(viewModel: AuthorizationScreensViewModel) {
         }
     )
 
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ShowMoreScreen() {
-    MoreScreen(viewModel = AuthorizationScreensViewModel())
 }
