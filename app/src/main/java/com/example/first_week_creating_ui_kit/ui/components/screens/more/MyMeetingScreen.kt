@@ -33,7 +33,7 @@ import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardMe
 import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.AllMeetingScreens
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
-import com.example.first_week_creating_ui_kit.ui.utils.myMeetingList
+import com.example.first_week_creating_ui_kit.ui.utils.myMeetingDataLists
 import com.example.firstweek_lessonfirst.R
 import kotlinx.coroutines.launch
 
@@ -44,7 +44,7 @@ fun MyMeetingScreen(navController: NavController) {
     val pagerState = rememberPagerState(pageCount = { AllMeetingScreens.entries.size })
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
 
-    val myMeetings = myMeetingList
+    val myMeetings = myMeetingDataLists
 
     Scaffold(
         topBar = {
@@ -114,7 +114,7 @@ fun MyMeetingScreen(navController: NavController) {
                     when (page) {
                         MyMeetingScreens.PlannedMeetings.ordinal -> {
                             ShowCardMeeting(
-                                meetings = myMeetings.filter { !it.isOver },
+                                meetingData = myMeetings.filter { !it.isOver },
                                 onMeetingClick = { meetingId ->
                                     navController.navigate("${Routes.More.SCREEN_DETAIL_ROUTE}/$meetingId")
                                 }
@@ -123,7 +123,7 @@ fun MyMeetingScreen(navController: NavController) {
 
                         MyMeetingScreens.GoneMeetings.ordinal -> {
                             ShowCardMeeting(
-                                meetings = myMeetings.filter { it.isOver },
+                                meetingData = myMeetings.filter { it.isOver },
                                 onMeetingClick = { meetingId ->
                                     navController.navigate("${Routes.More.SCREEN_DETAIL_ROUTE}/$meetingId")
                                 }

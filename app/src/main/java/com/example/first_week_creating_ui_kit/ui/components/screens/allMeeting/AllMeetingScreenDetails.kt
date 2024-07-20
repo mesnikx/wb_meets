@@ -45,7 +45,7 @@ import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBa
 import com.example.first_week_creating_ui_kit.ui.components.molecules.LineWithPeople
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.ExpandableText
-import com.example.first_week_creating_ui_kit.ui.utils.Meeting
+import com.example.first_week_creating_ui_kit.domain.data.MeetingData
 import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
 import com.example.firstweek_lessonfirst.R
 import me.saket.telephoto.zoomable.rememberZoomableState
@@ -60,7 +60,7 @@ fun AllMeetingScreenDetails(
     val card = viewModel.card.value
     val mapIsVisible = remember { mutableStateOf(false) }
 
-    if (card.meetingId != Meeting.getDefault().meetingId) {
+    if (card.meetingId != MeetingData.getDefault().meetingId) {
         Scaffold(
             topBar = {
                 NavigableTopBar(

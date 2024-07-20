@@ -8,7 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.first_week_creating_ui_kit.MeetingDetailsViewModel
 import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.AllMeetingScreenDetails
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.ui.utils.Meeting
+import com.example.first_week_creating_ui_kit.domain.data.MeetingData
 import com.example.firstweek_lessonfirst.R
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -17,7 +17,7 @@ fun MyMeetingScreenDetails(
     viewModel: MeetingDetailsViewModel
 ) {
     val card = viewModel.card.value
-    if (card.meetingId != Meeting.getDefault().meetingId) {
+    if (card.meetingId != MeetingData.getDefault().meetingId) {
         AllMeetingScreenDetails(viewModel = viewModel, navController = rememberNavController())
     } else {
         Text(

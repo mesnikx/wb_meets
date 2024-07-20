@@ -154,7 +154,8 @@ fun AppNavHost(navController: NavHostController, bottomBarState: BottomBarState)
         }
         composable(Routes.More.SCREEN_ROUTE_MORE) {
             bottomBarState.isVisible.value = true
-            MoreScreen()
+            val viewModel = AuthorizationScreensViewModel()
+            MoreScreen(viewModel)
         }
         composable(Routes.More.SCREEN_ROUTE_PROFILE) {
             bottomBarState.isVisible.value = true

@@ -2,11 +2,9 @@ package com.example.first_week_creating_ui_kit
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.first_week_creating_ui_kit.domain.data.ProfileData
 import com.example.first_week_creating_ui_kit.ui.utils.Country
-import com.example.first_week_creating_ui_kit.ui.utils.ProfileData
 
 class AuthorizationScreensViewModel : ViewModel() {
     private var _phoneNumber = mutableStateOf("")
@@ -15,11 +13,11 @@ class AuthorizationScreensViewModel : ViewModel() {
     val fullPhoneNumber: State<String> = _fullPhoneNumber
     private var _selectedCountry = mutableStateOf(Country.countries[0])
     val selectedCountry: State<Country> = _selectedCountry
-    private val _profileData = MutableLiveData<ProfileData>()
-    val profileData: LiveData<ProfileData> = _profileData
+    private val _profileData = mutableStateOf(ProfileData.getDefault())
+    val profileData: State<ProfileData> = _profileData
 
     fun updateProfile(name: String, surname: String) {
-        _profileData.value = ProfileData(name, surname)
+        _profileData.value = profileData.value.copy(name = name, surname = surname)
     }
 
     fun updatePhoneNumber(uploadedPhoneNumber: String) {

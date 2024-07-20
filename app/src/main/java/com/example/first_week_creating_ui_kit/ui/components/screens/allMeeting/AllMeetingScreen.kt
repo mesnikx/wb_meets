@@ -33,7 +33,7 @@ import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBa
 import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardMeeting
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
-import com.example.first_week_creating_ui_kit.ui.utils.meetingList
+import com.example.first_week_creating_ui_kit.ui.utils.meetingDataLists
 import com.example.firstweek_lessonfirst.R
 import kotlinx.coroutines.launch
 
@@ -43,7 +43,7 @@ fun AllMeetingScreen(navController: NavController) {
     val pagerState = rememberPagerState(pageCount = { AllMeetingScreens.entries.size })
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
 
-    val allMeetings = meetingList
+    val allMeetings = meetingDataLists
 
     Scaffold(
         topBar = {
@@ -115,7 +115,7 @@ fun AllMeetingScreen(navController: NavController) {
                     when (page) {
                         AllMeetingScreens.AllMeetings.ordinal -> {
                             ShowCardMeeting(
-                                meetings = allMeetings,
+                                meetingData = allMeetings,
                                 onMeetingClick = { meetingId ->
                                     navController.navigate("${Routes.AllMeeting.SCREEN_DETAIL_ROUTE}/$meetingId")
                                 }
@@ -124,7 +124,7 @@ fun AllMeetingScreen(navController: NavController) {
 
                         AllMeetingScreens.Active.ordinal -> {
                             ShowCardMeeting(
-                                meetings = allMeetings.filter { !it.isOver },
+                                meetingData = allMeetings.filter { !it.isOver },
                                 onMeetingClick = { meetingId ->
                                     navController.navigate("${Routes.AllMeeting.SCREEN_DETAIL_ROUTE}/$meetingId")
                                 }

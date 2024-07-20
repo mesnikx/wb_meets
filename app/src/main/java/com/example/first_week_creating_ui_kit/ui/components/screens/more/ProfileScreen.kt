@@ -28,7 +28,7 @@ import com.example.firstweek_lessonfirst.R
 
 @Composable
 fun ProfileScreen(viewModel: AuthorizationScreensViewModel) {
-    val profileData by viewModel.profileData.observeAsState()
+    val profileData = viewModel.profileData.value
     Scaffold(
         topBar = {
             NavigableTopBar(
@@ -62,7 +62,7 @@ fun ProfileScreen(viewModel: AuthorizationScreensViewModel) {
                         .padding(top = AppTheme.dimens.paddingXXXLarge * 2)
                         .align(Alignment.CenterHorizontally)
                 )
-                profileData?.let { profile ->
+                profileData.let { profile ->
                     Text(
                         text = "${profile.name} ${profile.surname}",
                         style = AppTheme.typo.usernameText,
