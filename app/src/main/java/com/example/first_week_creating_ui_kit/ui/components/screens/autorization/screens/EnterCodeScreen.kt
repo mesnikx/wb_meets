@@ -28,11 +28,11 @@ private const val PADDING_TOP_FOR_TEXT = 170
 private const val PADDING_TOP_FOR_BUTTON = 70
 
 @Composable
-fun EnterCodeScreen(viewModel: AuthorizationScreensViewModel) {
+fun EnterCodeScreen(koinViewModel: AuthorizationScreensViewModel) {
     val password = remember {
         mutableStateOf("")
     }
-    val phoneNumber = viewModel.fullPhoneNumber.value
+    val phoneNumber = koinViewModel.fullPhoneNumber.value
     val formattedPhoneNumber = formatPhoneNumber(phoneNumber)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -76,7 +76,7 @@ fun EnterCodeScreen(viewModel: AuthorizationScreensViewModel) {
                 .fillMaxWidth()
                 .padding(top = PADDING_TOP_FOR_BUTTON.dp),
             onClick = {
-                viewModel.nextScreen(AuthScreens.EnterProfileDataScreen)
+                koinViewModel.nextScreen(AuthScreens.EnterProfileDataScreen)
             }
         )
     }
@@ -86,5 +86,5 @@ fun EnterCodeScreen(viewModel: AuthorizationScreensViewModel) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ShowCodeScreen() {
-    EnterCodeScreen(viewModel = AuthorizationScreensViewModel(ProfileRepoImpl()))
+    EnterCodeScreen(koinViewModel = AuthorizationScreensViewModel(ProfileRepoImpl()))
 }

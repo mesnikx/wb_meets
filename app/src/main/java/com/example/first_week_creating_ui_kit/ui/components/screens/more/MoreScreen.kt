@@ -32,9 +32,9 @@ import com.example.first_week_creating_ui_kit.viewModels.MoreScreenViewModel
 import com.example.firstweek_lessonfirst.R
 
 @Composable
-fun MoreScreen(viewModel: MoreScreenViewModel) {
+fun MoreScreen(koinViewModel: MoreScreenViewModel) {
     val navigator = LocalNavigator.current
-    val profileData = viewModel.profileData.value
+    val profileData = koinViewModel.profileData.value
     Scaffold(
         topBar = {
             NavigableTopBar(titleText = R.string.bot_nav_more)

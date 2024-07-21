@@ -25,8 +25,8 @@ import com.example.first_week_creating_ui_kit.viewModels.MoreScreenViewModel
 import com.example.firstweek_lessonfirst.R
 
 @Composable
-fun ProfileScreen(viewModel: MoreScreenViewModel) {
-    val profileData = viewModel.profileData.value
+fun ProfileScreen(koinViewModel: MoreScreenViewModel) {
+    val profileData = koinViewModel.profileData.value
     Scaffold(
         topBar = {
             NavigableTopBar(

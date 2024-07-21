@@ -39,11 +39,11 @@ import com.example.firstweek_lessonfirst.R
 import kotlinx.coroutines.launch
 
 @Composable
-fun AllMeetingScreen(navController: NavController, viewModel: AllMeetingDetailsViewModel) {
+fun AllMeetingScreen(navController: NavController, koinViewModel: AllMeetingDetailsViewModel) {
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { AllMeetingScreens.entries.size })
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
-    val allMeetings = viewModel.meetings
+    val allMeetings = koinViewModel.meetings
 
     Scaffold(
         topBar = {
@@ -156,7 +156,7 @@ enum class AllMeetingScreens(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ShowAllMeetingScreen() {
-    AllMeetingScreen(navController = rememberNavController(), viewModel = AllMeetingDetailsViewModel(
+    AllMeetingScreen(navController = rememberNavController(), koinViewModel = AllMeetingDetailsViewModel(
         MeetingRepoImpl()
     ))
 }

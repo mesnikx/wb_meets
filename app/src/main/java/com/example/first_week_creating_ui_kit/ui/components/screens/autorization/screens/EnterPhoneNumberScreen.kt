@@ -23,7 +23,7 @@ private const val PADDING_TOP_FOR_TEXT = 170
 private const val PADDING_TOP_FOR_BUTTON = 70
 
 @Composable
-fun EnterPhoneNumberScreen(viewModel: AuthorizationScreensViewModel) {
+fun EnterPhoneNumberScreen(koinViewModel: AuthorizationScreensViewModel) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -49,19 +49,19 @@ fun EnterPhoneNumberScreen(viewModel: AuthorizationScreensViewModel) {
 
         )
         NumberPicker(
-            phoneNumber = viewModel.phoneNumber.value,
-            selectedCountry = viewModel.selectedCountry.value,
-            onPhoneNumberChanged = { viewModel.updatePhoneNumber(it) },
-            onFullPhoneNumberChanged = { viewModel.updatePhoneNumber(it) },
-            onCountryChanged = { viewModel.updateCountryCode(it) }
+            phoneNumber = koinViewModel.phoneNumber.value,
+            selectedCountry = koinViewModel.selectedCountry.value,
+            onPhoneNumberChanged = { koinViewModel.updatePhoneNumber(it) },
+            onFullPhoneNumberChanged = { koinViewModel.updatePhoneNumber(it) },
+            onCountryChanged = { koinViewModel.updateCountryCode(it) }
         )
         CustomButton(
             type = ButtonType.Primary,
             text = stringResource(id = R.string.continue_button),
             onClick = {
-                viewModel.nextScreen(AuthScreens.EnterCodeScreen)
+                koinViewModel.nextScreen(AuthScreens.EnterCodeScreen)
             },
-            isEnabled = viewModel.phoneNumber.value.isNotBlank(),
+            isEnabled = koinViewModel.phoneNumber.value.isNotBlank(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = PADDING_TOP_FOR_BUTTON.dp)

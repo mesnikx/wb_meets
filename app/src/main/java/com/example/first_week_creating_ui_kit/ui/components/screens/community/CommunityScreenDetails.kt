@@ -26,10 +26,10 @@ import com.example.firstweek_lessonfirst.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun CommunityScreenDetails(
-    viewModel: CommunityDetailsViewModel
+    koinViewModel: CommunityDetailsViewModel
 ) {
-    val community = viewModel.communityData.value
-    val meeting = viewModel.meetings.value
+    val community = koinViewModel.communityData.value
+    val meeting = koinViewModel.meetings.value
 
     if (community.communityId != com.example.domain.domain.entities.CommunityData.getDefault().communityId) {
         Scaffold(

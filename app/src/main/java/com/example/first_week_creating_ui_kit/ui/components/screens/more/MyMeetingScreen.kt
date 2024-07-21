@@ -36,13 +36,13 @@ import com.example.firstweek_lessonfirst.R
 import kotlinx.coroutines.launch
 
 @Composable
-fun MyMeetingScreen(navController: NavController, viewModel: MyMeetingScreenDetailsViewModel) {
+fun MyMeetingScreen(navController: NavController, koinViewModel: MyMeetingScreenDetailsViewModel) {
 
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { AllMeetingScreens.entries.size })
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
 
-    val myMeetings = viewModel.myMeetings
+    val myMeetings = koinViewModel.myMeetings
 
     Scaffold(
         topBar = {

@@ -3,10 +3,12 @@ package com.example.first_week_creating_ui_kit.viewModels
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.domain.domain.entities.ProfileData
+import com.example.domain.domain.repository.ProfileRepo
 import com.example.first_week_creating_ui_kit.ui.utils.Country
 
 class AuthorizationScreensViewModel(
-    private val repository: com.example.domain.domain.repository.ProfileRepo
+    private val repository: ProfileRepo
 ) : ViewModel() {
     private var _currentScreen = mutableStateOf(AuthScreens.EnterPhoneNumberScreen)
     val currentScreen = _currentScreen
@@ -16,8 +18,8 @@ class AuthorizationScreensViewModel(
     val fullPhoneNumber: State<String> = _fullPhoneNumber
     private var _selectedCountry = mutableStateOf(Country.countries[0])
     val selectedCountry: State<Country> = _selectedCountry
-    private val _profileData = mutableStateOf(com.example.domain.domain.entities.ProfileData.getDefault())
-    val profileData: State<com.example.domain.domain.entities.ProfileData> = _profileData
+    private val _profileData = mutableStateOf(ProfileData.getDefault())
+    val profileData: State<ProfileData> = _profileData
 
     fun saveProfileData() {
         val profileData = profileData.value.copy(phoneNumber = fullPhoneNumber.value)

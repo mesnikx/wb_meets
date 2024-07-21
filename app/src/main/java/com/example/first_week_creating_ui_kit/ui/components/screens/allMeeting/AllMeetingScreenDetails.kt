@@ -50,10 +50,10 @@ import me.saket.telephoto.zoomable.zoomable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AllMeetingScreenDetails(
-    viewModel: AllMeetingDetailsViewModel,
+    koinViewModel: AllMeetingDetailsViewModel,
     navController: NavController
 ) {
-    val card = viewModel.card.value
+    val card = koinViewModel.card.value
     val mapIsVisible = remember { mutableStateOf(false) }
 
     if (card.meetingId != com.example.domain.domain.entities.MeetingData.getDefault().meetingId) {

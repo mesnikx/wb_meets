@@ -35,7 +35,7 @@ private const val PADDING_TOP_FOR_BUTTON = 56
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun EnterProfileData(viewModel: AuthorizationScreensViewModel) {
+fun EnterProfileData(koinViewModel: AuthorizationScreensViewModel) {
     val navigator = LocalNavigator.current
     var name by remember { mutableStateOf("") }
     var surname by remember { mutableStateOf("") }
@@ -74,7 +74,7 @@ fun EnterProfileData(viewModel: AuthorizationScreensViewModel) {
                     hint = stringResource(id = R.string.enter_name),
                     onTextChange = { newName ->
                         name = newName
-                        viewModel.updateProfile(
+                        koinViewModel.updateProfile(
                             name,
                             surname
                         )
@@ -84,7 +84,7 @@ fun EnterProfileData(viewModel: AuthorizationScreensViewModel) {
                 CustomTextField(
                     onTextChange = { newSurname ->
                         surname = newSurname
-                        viewModel.updateProfile(
+                        koinViewModel.updateProfile(
                             name,
                             surname
                         )
@@ -96,11 +96,11 @@ fun EnterProfileData(viewModel: AuthorizationScreensViewModel) {
                     type = ButtonType.Primary,
                     text = stringResource(id = R.string.save_button),
                     onClick = {
-                        viewModel.updateProfile(
+                        koinViewModel.updateProfile(
                             name,
                             surname
                         )
-                        viewModel.saveProfileData()
+                        koinViewModel.saveProfileData()
                         navigator.navigateAllMeetingScreen()
                     },
                     isEnabled = isButtonEnabled,
