@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import com.example.first_week_creating_ui_kit.ui.components.atoms.AvatarType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomAvatar
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.domain.data.CommunityData
 import com.example.first_week_creating_ui_kit.ui.utils.toFormattedString
 import com.example.firstweek_lessonfirst.R
 
@@ -81,7 +80,7 @@ fun CardCommunity(
 }
 
 @Composable
-fun ShowCardCommunity(communities: List<CommunityData>, onCommunityClick: (String) -> Unit) {
+fun ShowCardCommunity(communities: List<com.example.domain.domain.entities.CommunityData>, onCommunityClick: (String) -> Unit) {
     LazyColumn {
         items(communities) { community ->
             CardCommunity(

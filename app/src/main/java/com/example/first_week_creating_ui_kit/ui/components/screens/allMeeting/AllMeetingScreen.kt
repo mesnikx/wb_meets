@@ -27,13 +27,13 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.first_week_creating_ui_kit.data.MeetingRepoImpl
+import com.example.data.bottomNavBarPadding
+import com.example.data.data.MeetingRepoImpl
 import com.example.first_week_creating_ui_kit.navigation.Routes
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomSearchBar
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardMeeting
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
 import com.example.first_week_creating_ui_kit.viewModels.AllMeetingDetailsViewModel
 import com.example.firstweek_lessonfirst.R
 import kotlinx.coroutines.launch
@@ -156,5 +156,7 @@ enum class AllMeetingScreens(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ShowAllMeetingScreen() {
-    AllMeetingScreen(navController = rememberNavController(), viewModel = AllMeetingDetailsViewModel(MeetingRepoImpl()))
+    AllMeetingScreen(navController = rememberNavController(), viewModel = AllMeetingDetailsViewModel(
+        MeetingRepoImpl()
+    ))
 }

@@ -43,8 +43,6 @@ import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBa
 import com.example.first_week_creating_ui_kit.ui.components.molecules.LineWithPeople
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.ExpandableText
-import com.example.first_week_creating_ui_kit.domain.data.MeetingData
-import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
 import com.example.firstweek_lessonfirst.R
 import me.saket.telephoto.zoomable.rememberZoomableState
 import me.saket.telephoto.zoomable.zoomable
@@ -58,7 +56,7 @@ fun AllMeetingScreenDetails(
     val card = viewModel.card.value
     val mapIsVisible = remember { mutableStateOf(false) }
 
-    if (card.meetingId != MeetingData.getDefault().meetingId) {
+    if (card.meetingId != com.example.domain.domain.entities.MeetingData.getDefault().meetingId) {
         Scaffold(
             topBar = {
                 NavigableTopBar(
@@ -77,7 +75,7 @@ fun AllMeetingScreenDetails(
                             .fillMaxSize()
                             .padding(
                                 top = innerPadding.calculateTopPadding(),
-                                bottom = bottomNavBarPadding.dp + innerPadding.calculateBottomPadding(),
+                                bottom = com.example.data.bottomNavBarPadding.dp + innerPadding.calculateBottomPadding(),
                                 start = AppTheme.dimens.paddingXXXLarge + innerPadding.calculateStartPadding(
                                     LayoutDirection.Ltr
                                 ),
