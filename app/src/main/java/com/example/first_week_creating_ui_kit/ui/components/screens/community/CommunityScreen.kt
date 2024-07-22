@@ -15,18 +15,23 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.data.bottomNavBarPadding
+import com.example.data.data.CommunityRepoImpl
 import com.example.first_week_creating_ui_kit.navigation.Routes
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomSearchBar
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardCommunity
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
-import com.example.first_week_creating_ui_kit.ui.utils.communityDataLists
+import com.example.first_week_creating_ui_kit.viewModels.CommunityDetailsViewModel
 import com.example.firstweek_lessonfirst.R
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CommunityScreen(navController: NavController) {
-    val allCommunities = communityDataLists
+fun CommunityScreen(
+    navController: NavController,
+    viewModel: CommunityDetailsViewModel = koinViewModel()
+) {
+    val allCommunities = viewModel.allCommunityList
     Scaffold(
         topBar = {
             NavigableTopBar(titleText = R.string.bot_nav_community)
@@ -63,5 +68,8 @@ fun CommunityScreen(navController: NavController) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ShowCommunityScreen() {
-    CommunityScreen(navController = rememberNavController())
+    CommunityScreen(
+        navController = rememberNavController(),
+        viewModel = CommunityDetailsViewModel(CommunityRepoImpl())
+    )
 }

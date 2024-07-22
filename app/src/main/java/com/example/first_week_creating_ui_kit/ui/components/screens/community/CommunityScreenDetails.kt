@@ -20,20 +20,19 @@ import com.example.first_week_creating_ui_kit.viewModels.CommunityDetailsViewMod
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.CardMeeting
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.domain.data.CommunityData
 import com.example.first_week_creating_ui_kit.ui.utils.ExpandableText
-import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
 import com.example.firstweek_lessonfirst.R
+import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun CommunityScreenDetails(
-    viewModel: CommunityDetailsViewModel
+    viewModel: CommunityDetailsViewModel = koinViewModel()
 ) {
     val community = viewModel.communityData.value
     val meeting = viewModel.meetings.value
 
-    if (community.communityId != CommunityData.getDefault().communityId) {
+    if (community.communityId != com.example.domain.domain.entities.CommunityData.getDefault().communityId) {
         Scaffold(
             topBar = {
                 NavigableTopBar(titleText = community.title)
@@ -45,7 +44,7 @@ fun CommunityScreenDetails(
                             .fillMaxSize()
                             .padding(
                                 top = innerPadding.calculateTopPadding(),
-                                bottom = bottomNavBarPadding.dp + innerPadding.calculateBottomPadding(),
+                                bottom = com.example.data.bottomNavBarPadding.dp + innerPadding.calculateBottomPadding(),
                                 start = AppTheme.dimens.paddingXXXLarge + innerPadding.calculateStartPadding(
                                     LayoutDirection.Ltr
                                 ),

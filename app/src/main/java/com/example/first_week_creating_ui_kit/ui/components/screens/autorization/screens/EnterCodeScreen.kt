@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.first_week_creating_ui_kit.data.ProfileRepoImpl
+import com.example.data.data.ProfileRepoImpl
 import com.example.first_week_creating_ui_kit.ui.components.atoms.ButtonType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomButton
 import com.example.first_week_creating_ui_kit.ui.components.screens.autorization.base.Password
@@ -23,12 +23,13 @@ import com.example.first_week_creating_ui_kit.ui.utils.formatPhoneNumber
 import com.example.first_week_creating_ui_kit.viewModels.AuthScreens
 import com.example.first_week_creating_ui_kit.viewModels.AuthorizationScreensViewModel
 import com.example.firstweek_lessonfirst.R
+import org.koin.androidx.compose.koinViewModel
 
 private const val PADDING_TOP_FOR_TEXT = 170
 private const val PADDING_TOP_FOR_BUTTON = 70
 
 @Composable
-fun EnterCodeScreen(viewModel: AuthorizationScreensViewModel) {
+fun EnterCodeScreen(viewModel: AuthorizationScreensViewModel = koinViewModel()) {
     val password = remember {
         mutableStateOf("")
     }

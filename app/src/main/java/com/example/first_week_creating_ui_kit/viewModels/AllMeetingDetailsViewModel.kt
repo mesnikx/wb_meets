@@ -3,8 +3,8 @@ package com.example.first_week_creating_ui_kit.viewModels
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.first_week_creating_ui_kit.domain.data.MeetingData
-import com.example.first_week_creating_ui_kit.domain.repository.MeetingRepo
+import com.example.domain.domain.entities.MeetingData
+import com.example.domain.domain.repository.MeetingRepo
 
 class AllMeetingDetailsViewModel(
     private val repository: MeetingRepo

@@ -25,18 +25,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.data.bottomNavBarPadding
 import com.example.first_week_creating_ui_kit.navigation.Routes
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardMeeting
 import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.AllMeetingScreens
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
 import com.example.first_week_creating_ui_kit.viewModels.MyMeetingScreenDetailsViewModel
 import com.example.firstweek_lessonfirst.R
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun MyMeetingScreen(navController: NavController, viewModel: MyMeetingScreenDetailsViewModel) {
+fun MyMeetingScreen(
+    navController: NavController,
+    viewModel: MyMeetingScreenDetailsViewModel = koinViewModel()
+) {
 
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { AllMeetingScreens.entries.size })

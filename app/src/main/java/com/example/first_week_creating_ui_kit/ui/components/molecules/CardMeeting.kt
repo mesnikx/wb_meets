@@ -22,7 +22,6 @@ import com.example.first_week_creating_ui_kit.ui.components.atoms.AvatarType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomAvatar
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomChip
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.domain.data.MeetingData
 import com.example.firstweek_lessonfirst.R
 
 @Composable
@@ -116,7 +115,7 @@ fun CardMeeting(
 }
 
 @Composable
-fun ShowCardMeeting(meetingData: List<MeetingData>, onMeetingClick: (String) -> Unit) {
+fun ShowCardMeeting(meetingData: List<com.example.domain.domain.entities.MeetingData>, onMeetingClick: (String) -> Unit) {
     LazyColumn {
         items(meetingData) { meeting ->
             CardMeeting(

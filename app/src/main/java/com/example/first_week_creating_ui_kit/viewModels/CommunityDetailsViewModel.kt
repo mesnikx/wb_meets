@@ -3,14 +3,15 @@ package com.example.first_week_creating_ui_kit.viewModels
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.first_week_creating_ui_kit.domain.data.CommunityData
-import com.example.first_week_creating_ui_kit.domain.data.MeetingData
-import com.example.first_week_creating_ui_kit.domain.repository.CommunityRepo
+import com.example.domain.domain.entities.CommunityData
+import com.example.domain.domain.entities.MeetingData
+import com.example.domain.domain.repository.CommunityRepo
 
 class CommunityDetailsViewModel(
     private val repository: CommunityRepo
 ) : ViewModel() {
-    private val allCommunityList = repository.getCommunities()
+    private val _allCommunityList = repository.getCommunities()
+    val allCommunityList = _allCommunityList
     private val allMeetingList = repository.getCommunityMeetings()
 
     private val _communityData = mutableStateOf(CommunityData.getDefault())
@@ -32,6 +33,6 @@ class CommunityDetailsViewModel(
     }
 
     private fun getCommunityById(communityId: String): CommunityData? {
-        return allCommunityList.firstOrNull { it.communityId == communityId }
+        return _allCommunityList.firstOrNull { it.communityId == communityId }
     }
 }

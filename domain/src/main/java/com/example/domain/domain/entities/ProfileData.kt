@@ -1,4 +1,4 @@
-package com.example.first_week_creating_ui_kit.domain.data
+package com.example.domain.domain.entities
 
 import java.util.UUID
 

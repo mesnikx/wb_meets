@@ -18,12 +18,13 @@ import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.viewModels.AuthScreens
 import com.example.first_week_creating_ui_kit.viewModels.AuthorizationScreensViewModel
 import com.example.firstweek_lessonfirst.R
+import org.koin.androidx.compose.koinViewModel
 
 private const val PADDING_TOP_FOR_TEXT = 170
 private const val PADDING_TOP_FOR_BUTTON = 70
 
 @Composable
-fun EnterPhoneNumberScreen(viewModel: AuthorizationScreensViewModel) {
+fun EnterPhoneNumberScreen(viewModel: AuthorizationScreensViewModel = koinViewModel()) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,

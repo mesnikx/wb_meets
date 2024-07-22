@@ -78,4 +78,7 @@ dependencies {
     implementation(libs.koin.androidx.navigation)
     implementation (libs.koin.androidx.compose)
     testImplementation (libs.koin.test.junit4)
+    implementation(project(":domain"))
+    implementation(project(":data"))
+
 }

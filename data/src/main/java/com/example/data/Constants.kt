@@ -1,8 +1,9 @@
-package com.example.first_week_creating_ui_kit.ui.utils
+package com.example.data
 
-import com.example.first_week_creating_ui_kit.domain.data.CommunityData
-import com.example.first_week_creating_ui_kit.domain.data.MeetingData
-import com.example.first_week_creating_ui_kit.domain.data.ProfileData
+import com.example.domain.domain.entities.CommunityData
+import com.example.domain.domain.entities.MeetingData
+import com.example.domain.domain.entities.ProfileData
+
 
 const val bottomNavBarPadding = 52
 
