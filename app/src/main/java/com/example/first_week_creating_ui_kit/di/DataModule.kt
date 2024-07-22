@@ -1,15 +1,21 @@
 package com.example.first_week_creating_ui_kit.di
 
+import com.example.data.data.CommunityRepoImpl
+import com.example.data.data.MeetingRepoImpl
+import com.example.data.data.ProfileRepoImpl
+import com.example.domain.domain.repository.CommunityRepo
+import com.example.domain.domain.repository.MeetingRepo
+import com.example.domain.domain.repository.ProfileRepo
 import org.koin.dsl.module
 
 val dataModule = module {
-    single<com.example.domain.domain.repository.CommunityRepo> {
-        com.example.data.data.CommunityRepoImpl()
+    single<CommunityRepo> {
+        CommunityRepoImpl()
     }
-    single<com.example.domain.domain.repository.MeetingRepo> {
-        com.example.data.data.MeetingRepoImpl()
+    single<MeetingRepo> {
+        MeetingRepoImpl()
     }
-    single<com.example.domain.domain.repository.ProfileRepo> {
-        com.example.data.data.ProfileRepoImpl()
+    single<ProfileRepo> {
+        ProfileRepoImpl()
     }
 }

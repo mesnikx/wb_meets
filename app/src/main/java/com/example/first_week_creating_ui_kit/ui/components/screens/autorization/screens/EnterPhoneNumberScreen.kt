@@ -18,12 +18,13 @@ import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.viewModels.AuthScreens
 import com.example.first_week_creating_ui_kit.viewModels.AuthorizationScreensViewModel
 import com.example.firstweek_lessonfirst.R
+import org.koin.androidx.compose.koinViewModel
 
 private const val PADDING_TOP_FOR_TEXT = 170
 private const val PADDING_TOP_FOR_BUTTON = 70
 
 @Composable
-fun EnterPhoneNumberScreen(koinViewModel: AuthorizationScreensViewModel) {
+fun EnterPhoneNumberScreen(viewModel: AuthorizationScreensViewModel = koinViewModel()) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -49,19 +50,19 @@ fun EnterPhoneNumberScreen(koinViewModel: AuthorizationScreensViewModel) {
 
         )
         NumberPicker(
-            phoneNumber = koinViewModel.phoneNumber.value,
-            selectedCountry = koinViewModel.selectedCountry.value,
-            onPhoneNumberChanged = { koinViewModel.updatePhoneNumber(it) },
-            onFullPhoneNumberChanged = { koinViewModel.updatePhoneNumber(it) },
-            onCountryChanged = { koinViewModel.updateCountryCode(it) }
+            phoneNumber = viewModel.phoneNumber.value,
+            selectedCountry = viewModel.selectedCountry.value,
+            onPhoneNumberChanged = { viewModel.updatePhoneNumber(it) },
+            onFullPhoneNumberChanged = { viewModel.updatePhoneNumber(it) },
+            onCountryChanged = { viewModel.updateCountryCode(it) }
         )
         CustomButton(
             type = ButtonType.Primary,
             text = stringResource(id = R.string.continue_button),
             onClick = {
-                koinViewModel.nextScreen(AuthScreens.EnterCodeScreen)
+                viewModel.nextScreen(AuthScreens.EnterCodeScreen)
             },
-            isEnabled = koinViewModel.phoneNumber.value.isNotBlank(),
+            isEnabled = viewModel.phoneNumber.value.isNotBlank(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = PADDING_TOP_FOR_BUTTON.dp)

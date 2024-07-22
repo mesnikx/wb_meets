@@ -5,24 +5,13 @@ import com.example.first_week_creating_ui_kit.viewModels.AuthorizationScreensVie
 import com.example.first_week_creating_ui_kit.viewModels.CommunityDetailsViewModel
 import com.example.first_week_creating_ui_kit.viewModels.MoreScreenViewModel
 import com.example.first_week_creating_ui_kit.viewModels.MyMeetingScreenDetailsViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
 val appModule = module {
-
-    viewModel<CommunityDetailsViewModel> {
-        CommunityDetailsViewModel(get())
-    }
-    viewModel<AllMeetingDetailsViewModel> {
-        AllMeetingDetailsViewModel(get())
-    }
-    viewModel<MyMeetingScreenDetailsViewModel> {
-        MyMeetingScreenDetailsViewModel(get())
-    }
-    viewModel<AuthorizationScreensViewModel> {
-        AuthorizationScreensViewModel(get())
-    }
-    viewModel<MoreScreenViewModel> {
-        MoreScreenViewModel(get())
-    }
+    viewModelOf(::CommunityDetailsViewModel)
+    viewModelOf(::AllMeetingDetailsViewModel)
+    viewModelOf(::MyMeetingScreenDetailsViewModel)
+    viewModelOf(::AuthorizationScreensViewModel)
+    viewModelOf(::MoreScreenViewModel)
 }

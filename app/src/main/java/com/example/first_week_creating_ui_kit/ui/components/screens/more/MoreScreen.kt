@@ -30,11 +30,12 @@ import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.formatPhoneNumber
 import com.example.first_week_creating_ui_kit.viewModels.MoreScreenViewModel
 import com.example.firstweek_lessonfirst.R
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun MoreScreen(koinViewModel: MoreScreenViewModel) {
+fun MoreScreen(viewModel: MoreScreenViewModel = koinViewModel()) {
     val navigator = LocalNavigator.current
-    val profileData = koinViewModel.profileData.value
+    val profileData = viewModel.profileData.value
     Scaffold(
         topBar = {
             NavigableTopBar(titleText = R.string.bot_nav_more)

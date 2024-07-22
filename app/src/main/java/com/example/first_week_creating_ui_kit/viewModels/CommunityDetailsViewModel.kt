@@ -10,7 +10,8 @@ import com.example.domain.domain.repository.CommunityRepo
 class CommunityDetailsViewModel(
     private val repository: CommunityRepo
 ) : ViewModel() {
-    private val allCommunityList = repository.getCommunities()
+    private val _allCommunityList = repository.getCommunities()
+    val allCommunityList = _allCommunityList
     private val allMeetingList = repository.getCommunityMeetings()
 
     private val _communityData = mutableStateOf(CommunityData.getDefault())
@@ -32,6 +33,6 @@ class CommunityDetailsViewModel(
     }
 
     private fun getCommunityById(communityId: String): CommunityData? {
-        return allCommunityList.firstOrNull { it.communityId == communityId }
+        return _allCommunityList.firstOrNull { it.communityId == communityId }
     }
 }

@@ -37,13 +37,17 @@ import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.viewModels.AllMeetingDetailsViewModel
 import com.example.firstweek_lessonfirst.R
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun AllMeetingScreen(navController: NavController, koinViewModel: AllMeetingDetailsViewModel) {
+fun AllMeetingScreen(
+    navController: NavController,
+    viewModel: AllMeetingDetailsViewModel = koinViewModel()
+) {
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { AllMeetingScreens.entries.size })
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
-    val allMeetings = koinViewModel.meetings
+    val allMeetings = viewModel.meetings
 
     Scaffold(
         topBar = {
@@ -156,7 +160,9 @@ enum class AllMeetingScreens(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ShowAllMeetingScreen() {
-    AllMeetingScreen(navController = rememberNavController(), koinViewModel = AllMeetingDetailsViewModel(
-        MeetingRepoImpl()
-    ))
+    AllMeetingScreen(
+        navController = rememberNavController(), viewModel = AllMeetingDetailsViewModel(
+            MeetingRepoImpl()
+        )
+    )
 }

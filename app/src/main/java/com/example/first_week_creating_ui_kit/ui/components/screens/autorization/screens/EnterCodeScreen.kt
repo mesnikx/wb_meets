@@ -23,16 +23,17 @@ import com.example.first_week_creating_ui_kit.ui.utils.formatPhoneNumber
 import com.example.first_week_creating_ui_kit.viewModels.AuthScreens
 import com.example.first_week_creating_ui_kit.viewModels.AuthorizationScreensViewModel
 import com.example.firstweek_lessonfirst.R
+import org.koin.androidx.compose.koinViewModel
 
 private const val PADDING_TOP_FOR_TEXT = 170
 private const val PADDING_TOP_FOR_BUTTON = 70
 
 @Composable
-fun EnterCodeScreen(koinViewModel: AuthorizationScreensViewModel) {
+fun EnterCodeScreen(viewModel: AuthorizationScreensViewModel = koinViewModel()) {
     val password = remember {
         mutableStateOf("")
     }
-    val phoneNumber = koinViewModel.fullPhoneNumber.value
+    val phoneNumber = viewModel.fullPhoneNumber.value
     val formattedPhoneNumber = formatPhoneNumber(phoneNumber)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -76,7 +77,7 @@ fun EnterCodeScreen(koinViewModel: AuthorizationScreensViewModel) {
                 .fillMaxWidth()
                 .padding(top = PADDING_TOP_FOR_BUTTON.dp),
             onClick = {
-                koinViewModel.nextScreen(AuthScreens.EnterProfileDataScreen)
+                viewModel.nextScreen(AuthScreens.EnterProfileDataScreen)
             }
         )
     }
@@ -86,5 +87,5 @@ fun EnterCodeScreen(koinViewModel: AuthorizationScreensViewModel) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ShowCodeScreen() {
-    EnterCodeScreen(koinViewModel = AuthorizationScreensViewModel(ProfileRepoImpl()))
+    EnterCodeScreen(viewModel = AuthorizationScreensViewModel(ProfileRepoImpl()))
 }

@@ -46,14 +46,15 @@ import com.example.first_week_creating_ui_kit.ui.utils.ExpandableText
 import com.example.firstweek_lessonfirst.R
 import me.saket.telephoto.zoomable.rememberZoomableState
 import me.saket.telephoto.zoomable.zoomable
+import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AllMeetingScreenDetails(
-    koinViewModel: AllMeetingDetailsViewModel,
+    viewModel: AllMeetingDetailsViewModel = koinViewModel(),
     navController: NavController
 ) {
-    val card = koinViewModel.card.value
+    val card = viewModel.card.value
     val mapIsVisible = remember { mutableStateOf(false) }
 
     if (card.meetingId != com.example.domain.domain.entities.MeetingData.getDefault().meetingId) {

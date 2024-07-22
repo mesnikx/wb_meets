@@ -22,14 +22,15 @@ import com.example.first_week_creating_ui_kit.ui.components.molecules.CardMeetin
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.ExpandableText
 import com.example.firstweek_lessonfirst.R
+import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun CommunityScreenDetails(
-    koinViewModel: CommunityDetailsViewModel
+    viewModel: CommunityDetailsViewModel = koinViewModel()
 ) {
-    val community = koinViewModel.communityData.value
-    val meeting = koinViewModel.meetings.value
+    val community = viewModel.communityData.value
+    val meeting = viewModel.meetings.value
 
     if (community.communityId != com.example.domain.domain.entities.CommunityData.getDefault().communityId) {
         Scaffold(

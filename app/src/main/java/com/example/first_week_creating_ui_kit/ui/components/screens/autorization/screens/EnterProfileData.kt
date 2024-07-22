@@ -30,12 +30,13 @@ import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBa
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.viewModels.AuthorizationScreensViewModel
 import com.example.firstweek_lessonfirst.R
+import org.koin.androidx.compose.koinViewModel
 
 private const val PADDING_TOP_FOR_BUTTON = 56
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun EnterProfileData(koinViewModel: AuthorizationScreensViewModel) {
+fun EnterProfileData(viewModel: AuthorizationScreensViewModel = koinViewModel()) {
     val navigator = LocalNavigator.current
     var name by remember { mutableStateOf("") }
     var surname by remember { mutableStateOf("") }
@@ -74,7 +75,7 @@ fun EnterProfileData(koinViewModel: AuthorizationScreensViewModel) {
                     hint = stringResource(id = R.string.enter_name),
                     onTextChange = { newName ->
                         name = newName
-                        koinViewModel.updateProfile(
+                        viewModel.updateProfile(
                             name,
                             surname
                         )
@@ -84,7 +85,7 @@ fun EnterProfileData(koinViewModel: AuthorizationScreensViewModel) {
                 CustomTextField(
                     onTextChange = { newSurname ->
                         surname = newSurname
-                        koinViewModel.updateProfile(
+                        viewModel.updateProfile(
                             name,
                             surname
                         )
@@ -96,11 +97,11 @@ fun EnterProfileData(koinViewModel: AuthorizationScreensViewModel) {
                     type = ButtonType.Primary,
                     text = stringResource(id = R.string.save_button),
                     onClick = {
-                        koinViewModel.updateProfile(
+                        viewModel.updateProfile(
                             name,
                             surname
                         )
-                        koinViewModel.saveProfileData()
+                        viewModel.saveProfileData()
                         navigator.navigateAllMeetingScreen()
                     },
                     isEnabled = isButtonEnabled,
