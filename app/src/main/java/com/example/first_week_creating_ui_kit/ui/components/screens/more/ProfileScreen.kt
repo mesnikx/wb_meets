@@ -9,26 +9,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.example.first_week_creating_ui_kit.AuthorizationScreensViewModel
+import com.example.data.bottomNavBarPadding
 import com.example.first_week_creating_ui_kit.ui.components.atoms.AvatarType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.ButtonType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomAvatar
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomButton
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
+import com.example.first_week_creating_ui_kit.ui.utils.formatPhoneNumber
+import com.example.first_week_creating_ui_kit.viewModels.MoreScreenViewModel
 import com.example.firstweek_lessonfirst.R
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ProfileScreen(viewModel: AuthorizationScreensViewModel) {
-    val profileData by viewModel.profileData.observeAsState()
+fun ProfileScreen(
+    viewModel: MoreScreenViewModel = koinViewModel()
+) {
+    val profileData = viewModel.profileData.value
     Scaffold(
         topBar = {
             NavigableTopBar(
@@ -62,7 +63,7 @@ fun ProfileScreen(viewModel: AuthorizationScreensViewModel) {
                         .padding(top = AppTheme.dimens.paddingXXXLarge * 2)
                         .align(Alignment.CenterHorizontally)
                 )
-                profileData?.let { profile ->
+                profileData.let { profile ->
                     Text(
                         text = "${profile.name} ${profile.surname}",
                         style = AppTheme.typo.usernameText,
@@ -70,7 +71,7 @@ fun ProfileScreen(viewModel: AuthorizationScreensViewModel) {
                         modifier = Modifier.padding(top = AppTheme.dimens.paddingXXLarge)
                     )
                     Text(
-                        text = profile.phoneNumber,
+                        text = formatPhoneNumber(profile.phoneNumber),
                         style = AppTheme.typo.usernamePhoneNumber,
                         color = AppTheme.colors.neutralColorSecondaryText,
                         modifier = Modifier.padding(top = AppTheme.dimens.paddingSmall)
@@ -107,10 +108,4 @@ fun ProfileScreen(viewModel: AuthorizationScreensViewModel) {
             }
         }
     )
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ShowProfileScreen() {
-    ProfileScreen(viewModel = AuthorizationScreensViewModel())
 }

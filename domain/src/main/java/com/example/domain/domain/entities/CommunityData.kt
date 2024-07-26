@@ -1,24 +1,24 @@
-package com.example.first_week_creating_ui_kit.ui.utils
+package com.example.domain.domain.entities
 
 import java.util.UUID
 
-data class Community(
+data class CommunityData(
     val communityId: String = UUID.randomUUID().toString(),
     val title: String,
     val description: String? = null,
     val imageUrl: String? = null,
     val numberOfSubs: Int,
-    val meetings: List<Meeting> = emptyList()
+    val meetingData: List<MeetingData> = emptyList()
 ) {
     companion object {
-        fun getDefault(): Community {
-            return Community(
+        fun getDefault(): CommunityData {
+            return CommunityData(
                 communityId = "",
                 title = "",
                 description = null,
                 imageUrl = null,
                 numberOfSubs = 0,
-                meetings = emptyList()
+                meetingData = emptyList()
             )
         }
     }

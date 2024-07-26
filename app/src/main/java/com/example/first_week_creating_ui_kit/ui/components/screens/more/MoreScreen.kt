@@ -19,27 +19,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.example.data.bottomNavBarPadding
 import com.example.first_week_creating_ui_kit.navigation.utils.LocalNavigator
 import com.example.first_week_creating_ui_kit.ui.components.atoms.AvatarType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomAvatar
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.ui.utils.ProfileData
-import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
+import com.example.first_week_creating_ui_kit.ui.utils.formatPhoneNumber
+import com.example.first_week_creating_ui_kit.viewModels.MoreScreenViewModel
 import com.example.firstweek_lessonfirst.R
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun MoreScreen() {
+fun MoreScreen(viewModel: MoreScreenViewModel = koinViewModel()) {
     val navigator = LocalNavigator.current
-    val myUser = ProfileData(
-        name = "Иван",
-        surname = "Иванов",
-        phoneNumber = "+7 999 999-99-99",
-        imageProfile = "https://img3.fonwall.ru/o/bl/white-black-monochrome-shadow-azlb.jpeg?auto=compress&amp;fit=resize&amp;w=1200&amp;display=large",
-    )
+    val profileData = viewModel.profileData.value
     Scaffold(
         topBar = {
             NavigableTopBar(titleText = R.string.bot_nav_more)
@@ -78,19 +74,19 @@ fun MoreScreen() {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         CustomAvatar(
                             type = AvatarType.AvatarProfile,
-                            imageUri = myUser.imageProfile,
+                            imageUri = profileData.imageProfile,
                             size = 50.dp,
                             backgroundColor = AppTheme.colors.neutralColorDivider,
                         )
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                text = "${myUser.name} ${myUser.surname}",
+                                text = "${profileData.name} ${profileData.surname}",
                                 style = AppTheme.typo.bodyText1,
                                 color = AppTheme.colors.neutralColorFont,
                                 modifier = Modifier.padding(start = AppTheme.dimens.paddingXXLarge)
                             )
                             Text(
-                                text = myUser.phoneNumber,
+                                text = formatPhoneNumber(profileData.phoneNumber),
                                 style = AppTheme.typo.metadata1,
                                 color = AppTheme.colors.neutralColorSecondaryText,
                                 modifier = Modifier.padding(start = AppTheme.dimens.paddingXXLarge)
@@ -146,10 +142,4 @@ fun MoreScreen() {
         }
     )
 
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ShowMoreScreen() {
-    MoreScreen()
 }

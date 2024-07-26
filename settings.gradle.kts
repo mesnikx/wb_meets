@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Firstweek-lessonfirst"
 include(":app")
+include(":domain")
+include(":data")

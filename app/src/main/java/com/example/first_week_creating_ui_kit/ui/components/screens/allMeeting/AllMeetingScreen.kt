@@ -26,24 +26,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.first_week_creating_ui_kit.navigation.RootScreen
+import androidx.navigation.compose.rememberNavController
+import com.example.data.bottomNavBarPadding
+import com.example.data.data.MeetingRepoImpl
 import com.example.first_week_creating_ui_kit.navigation.Routes
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomSearchBar
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardMeeting
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
-import com.example.first_week_creating_ui_kit.ui.utils.bottomNavBarPadding
-import com.example.first_week_creating_ui_kit.ui.utils.meetingList
+import com.example.first_week_creating_ui_kit.viewModels.AllMeetingDetailsViewModel
 import com.example.firstweek_lessonfirst.R
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun AllMeetingScreen(navController: NavController) {
+fun AllMeetingScreen(
+    navController: NavController,
+    viewModel: AllMeetingDetailsViewModel = koinViewModel()
+) {
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { AllMeetingScreens.entries.size })
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
-
-    val allMeetings = meetingList
+    val allMeetings = viewModel.meetings
 
     Scaffold(
         topBar = {
@@ -115,7 +119,7 @@ fun AllMeetingScreen(navController: NavController) {
                     when (page) {
                         AllMeetingScreens.AllMeetings.ordinal -> {
                             ShowCardMeeting(
-                                meetings = allMeetings,
+                                meetingData = allMeetings,
                                 onMeetingClick = { meetingId ->
                                     navController.navigate("${Routes.AllMeeting.SCREEN_DETAIL_ROUTE}/$meetingId")
                                 }
@@ -124,7 +128,7 @@ fun AllMeetingScreen(navController: NavController) {
 
                         AllMeetingScreens.Active.ordinal -> {
                             ShowCardMeeting(
-                                meetings = allMeetings.filter { !it.isOver },
+                                meetingData = allMeetings.filter { !it.isOver },
                                 onMeetingClick = { meetingId ->
                                     navController.navigate("${Routes.AllMeeting.SCREEN_DETAIL_ROUTE}/$meetingId")
                                 }
@@ -156,5 +160,9 @@ enum class AllMeetingScreens(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ShowAllMeetingScreen() {
-    RootScreen()
+    AllMeetingScreen(
+        navController = rememberNavController(), viewModel = AllMeetingDetailsViewModel(
+            MeetingRepoImpl()
+        )
+    )
 }

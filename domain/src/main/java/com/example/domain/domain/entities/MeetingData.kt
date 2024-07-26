@@ -1,8 +1,8 @@
-package com.example.first_week_creating_ui_kit.ui.utils
+package com.example.domain.domain.entities
 
 import java.util.UUID
 
-data class Meeting(
+data class MeetingData(
     val meetingId: String = UUID.randomUUID().toString(),
     val title: String,
     val description: String? = null,
@@ -12,11 +12,11 @@ data class Meeting(
     val meetingGuests: List<String> = listOf(),
     val imageUrl: String? = null,
     val chips: List<String> = listOf(),
-    val communityId: String = Community.getDefault().communityId,
+    val communityDataId: String = CommunityData.getDefault().communityId,
 ) {
     companion object {
-        fun getDefault(): Meeting {
-            return Meeting(
+        fun getDefault(): MeetingData {
+            return MeetingData(
                 meetingId = "",
                 title = "",
                 description = "",
@@ -24,7 +24,7 @@ data class Meeting(
                 isOver = false,
                 imageUrl = null,
                 chips = emptyList(),
-                communityId = ""
+                communityDataId = ""
             )
         }
     }
