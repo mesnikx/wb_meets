@@ -1,4 +1,4 @@
-package com.example.first_week_creating_ui_kit.di
+package com.example.data.di
 
 import com.example.data.data.CommunityRepoImpl
 import com.example.data.data.MeetingRepoImpl

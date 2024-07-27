@@ -30,6 +30,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
@@ -37,6 +38,7 @@ import com.example.first_week_creating_ui_kit.ui.utils.Country
 
 const val CODE_LENGTH = 4
 const val DOT_SIZE = 24
+const val CONTAINER_WIDTH = 32
 const val DOT_SPACE = 40
 val customTextSelectionColors = TextSelectionColors(
     handleColor = Transparent,
@@ -51,7 +53,8 @@ fun Password(
 ) {
     Box(
         modifier = modifier
-            .width(IntrinsicSize.Min)
+            .width(IntrinsicSize.Min),
+        contentAlignment = Alignment.Center
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -59,18 +62,33 @@ fun Password(
         ) {
             value.forEach {
                 Text(
+                    modifier = Modifier
+                        .size(
+                            width = CONTAINER_WIDTH.dp,
+                            height = DOT_SPACE.dp
+                        ),
                     text = it.toString(),
                     color = AppTheme.colors.neutralColorFont,
                     style = AppTheme.typo.h1,
+                    textAlign = TextAlign.Center
                 )
             }
             repeat(CODE_LENGTH - value.length) {
                 Box(
                     modifier = Modifier
-                        .size(DOT_SIZE.dp)
-                        .clip(CircleShape)
-                        .background(AppTheme.colors.neutralColorDivider)
-                )
+                        .size(
+                            width = CONTAINER_WIDTH.dp,
+                            height = DOT_SPACE.dp
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(DOT_SIZE.dp)
+                            .clip(CircleShape)
+                            .background(AppTheme.colors.neutralColorDivider),
+                    )
+                }
             }
         }
         CompositionLocalProvider(

@@ -34,4 +34,6 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(libs.koin.android)
+    implementation(libs.kotlinx.coroutines.android)
 }
