@@ -15,6 +15,7 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -46,7 +47,7 @@ fun MyMeetingScreen(
     val pagerState = rememberPagerState(pageCount = { AllMeetingScreens.entries.size })
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
 
-    val myMeetings = viewModel.myMeetings
+    val myMeetings by viewModel.myMeetings.collectAsState(initial = emptyList())
 
     Scaffold(
         topBar = {

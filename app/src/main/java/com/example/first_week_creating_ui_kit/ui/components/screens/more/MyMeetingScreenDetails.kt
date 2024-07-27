@@ -23,6 +23,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -54,7 +56,7 @@ fun MyMeetingScreenDetails(
     viewModel: MyMeetingScreenDetailsViewModel = koinViewModel(),
     navController: NavController
 ) {
-    val card = viewModel.card.value
+    val card by viewModel.card.collectAsState()
     val mapIsVisible = remember { mutableStateOf(false) }
     if (card.meetingId != com.example.domain.domain.entities.MeetingData.getDefault().meetingId) {
         Scaffold(

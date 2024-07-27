@@ -4,7 +4,7 @@ import com.example.domain.domain.entities.CommunityData
 import com.example.domain.domain.entities.MeetingData
 
 interface CommunityRepo {
-    fun getCommunity(): CommunityData
-    fun getCommunities(): List<CommunityData>
-    fun getCommunityMeetings(): List<MeetingData>
+    suspend fun getCommunity(): CommunityData
+    suspend fun getCommunities(): List<CommunityData>
+    suspend fun getCommunityMeetings(): List<MeetingData>
 }

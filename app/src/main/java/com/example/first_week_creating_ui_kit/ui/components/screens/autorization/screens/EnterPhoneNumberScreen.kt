@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,6 +27,8 @@ private const val PADDING_TOP_FOR_BUTTON = 70
 
 @Composable
 fun EnterPhoneNumberScreen(viewModel: AuthorizationScreensViewModel = koinViewModel()) {
+    val phoneNumber by viewModel.phoneNumber.collectAsState()
+    val selectedCountry by viewModel.selectedCountry.collectAsState()
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -50,8 +54,8 @@ fun EnterPhoneNumberScreen(viewModel: AuthorizationScreensViewModel = koinViewMo
 
         )
         NumberPicker(
-            phoneNumber = viewModel.phoneNumber.value,
-            selectedCountry = viewModel.selectedCountry.value,
+            phoneNumber = phoneNumber,
+            selectedCountry = selectedCountry,
             onPhoneNumberChanged = { viewModel.updatePhoneNumber(it) },
             onFullPhoneNumberChanged = { viewModel.updatePhoneNumber(it) },
             onCountryChanged = { viewModel.updateCountryCode(it) }
@@ -62,7 +66,7 @@ fun EnterPhoneNumberScreen(viewModel: AuthorizationScreensViewModel = koinViewMo
             onClick = {
                 viewModel.nextScreen(AuthScreens.EnterCodeScreen)
             },
-            isEnabled = viewModel.phoneNumber.value.isNotBlank(),
+            isEnabled = phoneNumber.isNotBlank(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = PADDING_TOP_FOR_BUTTON.dp)
