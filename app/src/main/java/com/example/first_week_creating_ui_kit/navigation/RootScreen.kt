@@ -137,14 +137,12 @@ fun AppNavHost(navController: NavHostController, bottomBarState: BottomBarState)
         }
         composable(Routes.AuthorizationScreen.SCREEN_AUTH_ROUTE) {
             bottomBarState.isVisible.value = false
-            val viewModel: AuthorizationScreensViewModel = koinViewModel()
-            AuthScreen(viewModel)
+            AuthScreen()
 
         }
         composable(Routes.AllMeeting.SCREEN_ROUTE) {
             bottomBarState.isVisible.value = true
-            val viewModel: AllMeetingDetailsViewModel = koinViewModel()
-            AllMeetingScreen(navController, viewModel)
+            AllMeetingScreen(navController)
         }
         composable(Routes.Community.SCREEN_ROUTE) {
             bottomBarState.isVisible.value = true
@@ -152,18 +150,15 @@ fun AppNavHost(navController: NavHostController, bottomBarState: BottomBarState)
         }
         composable(Routes.More.SCREEN_ROUTE_MORE) {
             bottomBarState.isVisible.value = true
-            val viewModel: MoreScreenViewModel = koinViewModel()
-            MoreScreen(viewModel)
+            MoreScreen()
         }
         composable(Routes.More.SCREEN_ROUTE_PROFILE) {
             bottomBarState.isVisible.value = true
-            val viewModel: MoreScreenViewModel = koinViewModel()
-            ProfileScreen(viewModel)
+            ProfileScreen()
         }
         composable(Routes.More.SCREEN_ROUTE_MY_MEETING) {
             bottomBarState.isVisible.value = true
-            val viewModel: MyMeetingScreenDetailsViewModel = koinViewModel()
-            MyMeetingScreen(navController, viewModel)
+            MyMeetingScreen(navController)
         }
         composable(
             route = "${Routes.AllMeeting.SCREEN_DETAIL_ROUTE}/{${Routes.AllMeeting.SCREEN_DETAIL_ID_KEY}}",

@@ -1,6 +1,7 @@
 package com.example.domain.use_case_test.profile
 
 import com.example.domain.domain.entities.ProfileData
+import com.example.domain.domain.repository.ProfileRepo
 import com.example.domain.domain.stubs.profile.ProfileDataStub
 import com.example.domain.domain.use_cases.profile.GetProfileDataUseCase
 import com.example.domain.domain.use_cases.profile.GetProfileDataUseCaseImpl
@@ -15,7 +16,7 @@ import org.junit.jupiter.api.Test
 @ExperimentalCoroutinesApi
 class SaveProfileDataUseCaseTest {
 
-    private lateinit var profileRepoStub: ProfileDataStub
+    private lateinit var profileRepoStub: ProfileRepo
     private lateinit var getProfileDataUseCase: GetProfileDataUseCase
     private lateinit var saveProfileDataUseCase: SaveProfileDataUseCase
 

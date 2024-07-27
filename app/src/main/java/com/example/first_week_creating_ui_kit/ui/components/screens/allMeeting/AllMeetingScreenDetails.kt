@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.domain.domain.entities.MeetingData
 import com.example.first_week_creating_ui_kit.viewModels.AllMeetingDetailsViewModel
 import com.example.first_week_creating_ui_kit.ui.components.atoms.ButtonType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomButton
@@ -59,7 +60,7 @@ fun AllMeetingScreenDetails(
     val card by viewModel.card.collectAsState()
     val mapIsVisible = remember { mutableStateOf(false) }
 
-    if (card.meetingId != com.example.domain.domain.entities.MeetingData.getDefault().meetingId) {
+    if (card.meetingId != MeetingData.getDefault().meetingId) {
         Scaffold(
             topBar = {
                 NavigableTopBar(

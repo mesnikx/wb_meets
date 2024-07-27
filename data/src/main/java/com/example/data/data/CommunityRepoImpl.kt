@@ -6,17 +6,11 @@ import com.example.domain.domain.entities.CommunityData
 import com.example.domain.domain.entities.MeetingData
 import com.example.domain.domain.repository.CommunityRepo
 
-internal class CommunityRepoImpl :  CommunityRepo {
-    override suspend fun getCommunity(): CommunityData {
-        return CommunityData.getDefault()
-    }
+internal class CommunityRepoImpl : CommunityRepo {
+    override suspend fun getCommunity(): CommunityData = CommunityData.getDefault()
 
-    override suspend fun getCommunities(): List<CommunityData> {
-        return communityDataLists
-    }
+    override suspend fun getCommunities(): List<CommunityData> = communityDataLists
 
-    override suspend fun getCommunityMeetings(): List<MeetingData> {
-        return meetingDataLists
-    }
+    override suspend fun getCommunityMeetings(): List<MeetingData> = meetingDataLists
 
 }
