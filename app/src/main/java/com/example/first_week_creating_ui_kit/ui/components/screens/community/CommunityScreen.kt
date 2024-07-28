@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.data.bottomNavBarPadding
 import com.example.first_week_creating_ui_kit.navigation.Routes
@@ -29,7 +29,7 @@ fun CommunityScreen(
     navController: NavController,
     viewModel: CommunityDetailsViewModel = koinViewModel()
 ) {
-    val allCommunities = viewModel.allCommunityList.collectAsState(initial = emptyList())
+    val allCommunities = viewModel.allCommunityList.collectAsStateWithLifecycle(initialValue = emptyList())
     Scaffold(
         topBar = {
             NavigableTopBar(titleText = R.string.bot_nav_community)

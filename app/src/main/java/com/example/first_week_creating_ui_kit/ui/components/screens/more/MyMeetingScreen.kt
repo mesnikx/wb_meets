@@ -15,7 +15,6 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -25,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.data.bottomNavBarPadding
 import com.example.first_week_creating_ui_kit.navigation.Routes
@@ -47,7 +47,7 @@ fun MyMeetingScreen(
     val pagerState = rememberPagerState(pageCount = { AllMeetingScreens.entries.size })
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
 
-    val myMeetings by viewModel.myMeetings.collectAsState(initial = emptyList())
+    val myMeetings by viewModel.myMeetings.collectAsStateWithLifecycle(initialValue = emptyList())
 
     Scaffold(
         topBar = {
