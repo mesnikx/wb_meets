@@ -13,6 +13,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,6 +31,7 @@ import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBa
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.viewModels.AuthorizationScreensViewModel
 import com.example.firstweek_lessonfirst.R
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 private const val PADDING_TOP_FOR_BUTTON = 56
@@ -43,6 +45,7 @@ fun EnterProfileData(viewModel: AuthorizationScreensViewModel = koinViewModel())
     val isButtonEnabled by derivedStateOf {
         name.isNotBlank()
     }
+    val scope = rememberCoroutineScope()
     Scaffold(
         topBar = {
             NavigableTopBar(
@@ -101,8 +104,10 @@ fun EnterProfileData(viewModel: AuthorizationScreensViewModel = koinViewModel())
                             name,
                             surname
                         )
-                        viewModel.saveProfileData()
-                        navigator.navigateAllMeetingScreen()
+                        scope.launch {
+                            viewModel.saveProfileData()
+                            navigator.navigateAllMeetingScreen()
+                        }
                     },
                     isEnabled = isButtonEnabled,
                     modifier = Modifier

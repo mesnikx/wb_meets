@@ -13,6 +13,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.data.bottomNavBarPadding
 import com.example.first_week_creating_ui_kit.navigation.utils.LocalNavigator
 import com.example.first_week_creating_ui_kit.ui.components.atoms.AvatarType
@@ -35,7 +37,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun MoreScreen(viewModel: MoreScreenViewModel = koinViewModel()) {
     val navigator = LocalNavigator.current
-    val profileData = viewModel.profileData.value
+    val profileData by viewModel.profileData.collectAsStateWithLifecycle()
     Scaffold(
         topBar = {
             NavigableTopBar(titleText = R.string.bot_nav_more)

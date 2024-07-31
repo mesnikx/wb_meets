@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.data.bottomNavBarPadding
 import com.example.first_week_creating_ui_kit.ui.components.atoms.AvatarType
 import com.example.first_week_creating_ui_kit.ui.components.atoms.ButtonType
@@ -29,7 +31,7 @@ import org.koin.androidx.compose.koinViewModel
 fun ProfileScreen(
     viewModel: MoreScreenViewModel = koinViewModel()
 ) {
-    val profileData = viewModel.profileData.value
+    val profileData by viewModel.profileData.collectAsStateWithLifecycle()
     Scaffold(
         topBar = {
             NavigableTopBar(

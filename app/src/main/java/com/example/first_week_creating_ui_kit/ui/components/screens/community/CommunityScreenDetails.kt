@@ -12,15 +12,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.example.first_week_creating_ui_kit.viewModels.CommunityDetailsViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.domain.domain.entities.CommunityData
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.CardMeeting
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.ui.utils.ExpandableText
+import com.example.first_week_creating_ui_kit.viewModels.CommunityDetailsViewModel
 import com.example.firstweek_lessonfirst.R
 import org.koin.androidx.compose.koinViewModel
 
@@ -29,10 +32,10 @@ import org.koin.androidx.compose.koinViewModel
 fun CommunityScreenDetails(
     viewModel: CommunityDetailsViewModel = koinViewModel()
 ) {
-    val community = viewModel.communityData.value
-    val meeting = viewModel.meetings.value
+    val community by viewModel.communityData.collectAsStateWithLifecycle()
+    val meeting by viewModel.meetings.collectAsStateWithLifecycle()
 
-    if (community.communityId != com.example.domain.domain.entities.CommunityData.getDefault().communityId) {
+    if (community.communityId != CommunityData.getDefault().communityId) {
         Scaffold(
             topBar = {
                 NavigableTopBar(titleText = community.title)

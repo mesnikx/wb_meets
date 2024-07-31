@@ -10,13 +10,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.data.bottomNavBarPadding
-import com.example.data.data.CommunityRepoImpl
 import com.example.first_week_creating_ui_kit.navigation.Routes
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomSearchBar
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
@@ -31,7 +29,7 @@ fun CommunityScreen(
     navController: NavController,
     viewModel: CommunityDetailsViewModel = koinViewModel()
 ) {
-    val allCommunities = viewModel.allCommunityList
+    val allCommunities = viewModel.allCommunityList.collectAsStateWithLifecycle(initialValue = emptyList())
     Scaffold(
         topBar = {
             NavigableTopBar(titleText = R.string.bot_nav_community)
@@ -54,22 +52,12 @@ fun CommunityScreen(
                 CustomSearchBar(modifier = Modifier.fillMaxWidth())
                 Spacer(modifier = Modifier.padding(AppTheme.dimens.paddingLarge))
                 ShowCardCommunity(
-                    communities = allCommunities,
+                    communities = allCommunities.value,
                     onCommunityClick = { communityId ->
                         navController.navigate("${Routes.Community.SCREEN_DETAIL_ROUTE}/$communityId")
                     }
                 )
             }
         }
-    )
-}
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ShowCommunityScreen() {
-    CommunityScreen(
-        navController = rememberNavController(),
-        viewModel = CommunityDetailsViewModel(CommunityRepoImpl())
     )
 }

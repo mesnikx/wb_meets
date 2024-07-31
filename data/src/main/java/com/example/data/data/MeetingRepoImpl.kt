@@ -5,21 +5,13 @@ import com.example.data.myMeetingDataLists
 import com.example.domain.domain.entities.MeetingData
 import com.example.domain.domain.repository.MeetingRepo
 
-class MeetingRepoImpl : MeetingRepo {
-    override fun getAllMeetings(): List<MeetingData> {
-        return meetingDataLists
-    }
+internal class MeetingRepoImpl : MeetingRepo {
+    override suspend fun getAllMeetings(): List<MeetingData> = meetingDataLists
 
-    override fun getAllMeeting(): MeetingData {
-        return MeetingData.getDefault()
-    }
+    override suspend fun getAllMeeting(): MeetingData = MeetingData.getDefault()
 
-    override fun getMyMeetings(): List<MeetingData> {
-        return myMeetingDataLists
-    }
+    override suspend fun getMyMeetings(): List<MeetingData> = myMeetingDataLists
 
-    override fun getMyMeeting(): MeetingData {
-        return MeetingData.getDefault()
-    }
+    override suspend fun getMyMeeting(): MeetingData = MeetingData.getDefault()
 
 }

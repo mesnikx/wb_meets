@@ -22,13 +22,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.data.bottomNavBarPadding
-import com.example.data.data.MeetingRepoImpl
 import com.example.first_week_creating_ui_kit.navigation.Routes
 import com.example.first_week_creating_ui_kit.ui.components.atoms.CustomSearchBar
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
@@ -47,7 +45,7 @@ fun AllMeetingScreen(
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { AllMeetingScreens.entries.size })
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
-    val allMeetings = viewModel.meetings
+    val allMeetings by viewModel.meetings.collectAsStateWithLifecycle(initialValue = emptyList())
 
     Scaffold(
         topBar = {
@@ -154,15 +152,5 @@ enum class AllMeetingScreens(
     Active(
         selectedText = R.string.active_meetings,
         unselectedText = R.string.active_meetings
-    )
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ShowAllMeetingScreen() {
-    AllMeetingScreen(
-        navController = rememberNavController(), viewModel = AllMeetingDetailsViewModel(
-            MeetingRepoImpl()
-        )
     )
 }
