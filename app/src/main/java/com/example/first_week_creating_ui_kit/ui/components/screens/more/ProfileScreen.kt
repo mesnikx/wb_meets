@@ -40,6 +40,7 @@ fun ProfileScreen(
                 actionIcon = R.drawable.ic_nav_edit
             )
         },
+        containerColor = AppTheme.colors.neutralColorForTopBar,
         content = { innerPadding ->
             Column(
                 modifier = Modifier

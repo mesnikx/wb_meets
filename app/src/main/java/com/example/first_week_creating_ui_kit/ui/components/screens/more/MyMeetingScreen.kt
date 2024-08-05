@@ -1,5 +1,12 @@
 package com.example.first_week_creating_ui_kit.ui.components.screens.more
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -7,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
@@ -27,26 +35,25 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.data.bottomNavBarPadding
+import com.example.domain.domain.entities.MeetingData
 import com.example.first_week_creating_ui_kit.navigation.Routes
 import com.example.first_week_creating_ui_kit.ui.components.atoms.NavigableTopBar
 import com.example.first_week_creating_ui_kit.ui.components.molecules.ShowCardMeeting
-import com.example.first_week_creating_ui_kit.ui.components.screens.allMeeting.AllMeetingScreens
 import com.example.first_week_creating_ui_kit.ui.theme.AppTheme
 import com.example.first_week_creating_ui_kit.viewModels.MyMeetingScreenDetailsViewModel
 import com.example.firstweek_lessonfirst.R
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MyMeetingScreen(
     navController: NavController,
     viewModel: MyMeetingScreenDetailsViewModel = koinViewModel()
 ) {
-
     val scope = rememberCoroutineScope()
-    val pagerState = rememberPagerState(pageCount = { AllMeetingScreens.entries.size })
+    val pagerState = rememberPagerState(pageCount = { MyMeetingScreens.entries.size })
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
-
     val myMeetings by viewModel.myMeetings.collectAsStateWithLifecycle(initialValue = emptyList())
 
     Scaffold(
@@ -56,6 +63,7 @@ fun MyMeetingScreen(
                 navIcon = R.drawable.ic_nav_back
             )
         },
+        containerColor = AppTheme.colors.neutralColorForTopBar,
         content = { innerPadding ->
             Column(
                 modifier = Modifier
@@ -71,75 +79,99 @@ fun MyMeetingScreen(
                         )
                     )
             ) {
-                TabRow(
+                MeetingTabs(
                     selectedTabIndex = selectedTabIndex,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            bottom = AppTheme.dimens.paddingXLarge
-                        ),
-                    containerColor = Color.Transparent,
-                    divider = {},
-                    indicator = { tabPositions ->
-                        if (selectedTabIndex < tabPositions.size)
-                            TabRowDefaults.SecondaryIndicator(
-                                modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
-                                height = 2.dp,
-                                color = AppTheme.colors.brandColorDefault
-                            )
-                    },
-                ) {
-                    MyMeetingScreens.entries.forEachIndexed { index, currentTab ->
-                        Tab(
-                            selected = selectedTabIndex == index,
-                            selectedContentColor = AppTheme.colors.brandColorDefault,
-                            unselectedContentColor = AppTheme.colors.disabledColorForTab,
-                            onClick = {
-                                scope.launch {
-                                    pagerState.animateScrollToPage(currentTab.ordinal)
-                                }
-                            }) {
-                            Text(
-                                text = if (selectedTabIndex == index)
-                                    stringResource(id = currentTab.selectedText).uppercase()
-                                else stringResource(id = currentTab.unselectedText).uppercase(),
-                                style = AppTheme.typo.textForTabs,
-                                modifier = Modifier.padding(vertical = AppTheme.dimens.paddingLarge)
-                            )
+                    onTabSelected = { index ->
+                        scope.launch {
+                            pagerState.animateScrollToPage(index)
                         }
                     }
-                }
-                HorizontalPager(
-                    state = pagerState,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) { page ->
-                    when (page) {
-                        MyMeetingScreens.PlannedMeetings.ordinal -> {
-                            ShowCardMeeting(
-                                meetingData = myMeetings.filter { !it.isOver },
-                                onMeetingClick = { meetingId ->
-                                    navController.navigate("${Routes.More.SCREEN_DETAIL_ROUTE}/$meetingId")
-                                }
-                            )
-                        }
-
-                        MyMeetingScreens.GoneMeetings.ordinal -> {
-                            ShowCardMeeting(
-                                meetingData = myMeetings.filter { it.isOver },
-                                onMeetingClick = { meetingId ->
-                                    navController.navigate("${Routes.More.SCREEN_DETAIL_ROUTE}/$meetingId")
-                                }
-                            )
-                        }
-                    }
-                }
+                )
+                MeetingContentPager(
+                    pagerState = pagerState,
+                    myMeetings = myMeetings,
+                    navController = navController
+                )
             }
-
         }
     )
 }
 
+@Composable
+fun MeetingTabs(selectedTabIndex: Int, onTabSelected: (Int) -> Unit) {
+    TabRow(
+        selectedTabIndex = selectedTabIndex,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                bottom = AppTheme.dimens.paddingXLarge
+            ),
+        containerColor = Color.Transparent,
+        divider = {},
+        indicator = { tabPositions ->
+            if (selectedTabIndex < tabPositions.size)
+                TabRowDefaults.SecondaryIndicator(
+                    modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
+                    height = 2.dp,
+                    color = AppTheme.colors.brandColorDefault
+                )
+        },
+    ) {
+        MyMeetingScreens.entries.forEachIndexed { index, currentTab ->
+            Tab(
+                selected = selectedTabIndex == index,
+                selectedContentColor = AppTheme.colors.brandColorDefault,
+                unselectedContentColor = AppTheme.colors.disabledColorForTab,
+                onClick = { onTabSelected(index) }) {
+                Text(
+                    text = if (selectedTabIndex == index)
+                        stringResource(id = currentTab.selectedText).uppercase()
+                    else stringResource(id = currentTab.unselectedText).uppercase(),
+                    style = AppTheme.typo.textForTabs,
+                    modifier = Modifier.padding(vertical = AppTheme.dimens.paddingLarge)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun MeetingContentPager(
+    pagerState: PagerState,
+    myMeetings: List<MeetingData>,
+    navController: NavController
+) {
+    HorizontalPager(
+        state = pagerState,
+        modifier = Modifier.fillMaxWidth()
+    ) { page ->
+        AnimatedVisibility(
+            visible = true,
+            enter = fadeIn(animationSpec = tween(300)) + expandIn(),
+            exit = fadeOut(animationSpec = tween(300)) + shrinkOut()
+        ) {
+            when (page) {
+                MyMeetingScreens.PlannedMeetings.ordinal -> {
+                    ShowCardMeeting(
+                        meetingData = myMeetings.filter { !it.isOver },
+                        onMeetingClick = { meetingId ->
+                            navController.navigate("${Routes.More.SCREEN_DETAIL_ROUTE}/$meetingId")
+                        }
+                    )
+                }
+
+                MyMeetingScreens.GoneMeetings.ordinal -> {
+                    ShowCardMeeting(
+                        meetingData = myMeetings.filter { it.isOver },
+                        onMeetingClick = { meetingId ->
+                            navController.navigate("${Routes.More.SCREEN_DETAIL_ROUTE}/$meetingId")
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
 
 enum class MyMeetingScreens(
     val selectedText: Int,

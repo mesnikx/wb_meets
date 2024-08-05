@@ -42,6 +42,7 @@ fun MoreScreen(viewModel: MoreScreenViewModel = koinViewModel()) {
         topBar = {
             NavigableTopBar(titleText = R.string.bot_nav_more)
         },
+        containerColor = AppTheme.colors.neutralColorForTopBar,
         content = { innerPadding ->
             Column(
                 modifier = Modifier

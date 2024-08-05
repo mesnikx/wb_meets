@@ -71,6 +71,7 @@ fun MyMeetingScreenDetails(
                     onMapClose = { mapIsVisible.value = false }
                 )
             },
+            containerColor = AppTheme.colors.neutralColorForTopBar,
             content = { innerPadding ->
                 Box(Modifier.fillMaxSize()) {
                     LazyColumn(

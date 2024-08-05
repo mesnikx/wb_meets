@@ -53,6 +53,7 @@ fun EnterProfileData(viewModel: AuthorizationScreensViewModel = koinViewModel())
                 navIcon = R.drawable.ic_nav_back,
             )
         },
+        containerColor = AppTheme.colors.neutralColorForTopBar,
         content = { innerPadding ->
             Column(
                 modifier = Modifier

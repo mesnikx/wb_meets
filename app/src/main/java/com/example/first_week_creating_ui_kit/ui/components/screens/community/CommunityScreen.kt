@@ -34,6 +34,7 @@ fun CommunityScreen(
         topBar = {
             NavigableTopBar(titleText = R.string.bot_nav_community)
         },
+        containerColor = AppTheme.colors.neutralColorForTopBar,
         content = { innerPadding ->
             Column(
                 modifier = Modifier

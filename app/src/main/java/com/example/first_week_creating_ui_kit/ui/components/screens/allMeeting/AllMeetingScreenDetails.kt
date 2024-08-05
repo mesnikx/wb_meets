@@ -11,6 +11,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -72,124 +73,153 @@ fun AllMeetingScreenDetails(
                     onMapClose = { mapIsVisible.value = false }
                 )
             },
+            containerColor = AppTheme.colors.neutralColorForTopBar,
             content = { innerPadding ->
-                Box(Modifier.fillMaxSize()) {
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(
-                                top = innerPadding.calculateTopPadding(),
-                                bottom = com.example.data.bottomNavBarPadding.dp + innerPadding.calculateBottomPadding(),
-                                start = AppTheme.dimens.paddingXXXLarge + innerPadding.calculateStartPadding(
-                                    LayoutDirection.Ltr
-                                ),
-                                end = AppTheme.dimens.paddingXXXLarge + innerPadding.calculateEndPadding(
-                                    LayoutDirection.Ltr
-                                )
-                            )
-                    ) {
-                        item {
-                            Column(
-                                modifier = Modifier
-                                    .padding(top = AppTheme.dimens.paddingXLarge)
-                                    .wrapContentSize()
-                            ) {
-                                Text(
-                                    text = card.dateAndPlace,
-                                    style = AppTheme.typo.bodyText1,
-                                    color = AppTheme.colors.neutralColorSecondaryText
-                                )
-                                Row {
-                                    card.chips.forEach { chipText ->
-                                        CustomChip(
-                                            text = chipText,
-                                            modifier = Modifier.padding(
-                                                top = AppTheme.dimens.paddingSmall,
-                                                end = AppTheme.dimens.paddingSmall
-                                            )
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                        item {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(top = AppTheme.dimens.paddingLarge)
-                                    .clip(RoundedCornerShape(AppTheme.dimens.paddingXXLarge))
-                                    .clickable { mapIsVisible.value = true }
-                            ) {
-                                AsyncImage(
-                                    model = card.mapUrl,
-                                    contentDescription = null,
-                                    modifier = Modifier.fillMaxWidth(),
-                                    contentScale = ContentScale.Fit
-                                )
-                            }
-                        }
-                        item {
-                            ExpandableText(
-                                text = card.description ?: "",
-                                style = AppTheme.typo.metadata1,
-                                color = AppTheme.colors.neutralColorSecondaryText,
-                                collapsedMaxLine = COLLAPSED_LINE,
-                            )
-                        }
-                        item {
-                            LineWithPeople(
-                                avatars = card.meetingGuests,
-                                modifier = Modifier.padding(top = AppTheme.dimens.paddingXXLarge)
-                            )
-                        }
-                        item {
-                            when {
-                                card.isOver -> CustomButton(
-                                    type = ButtonType.Secondary,
-                                    text = stringResource(id = R.string.i_will_come_next_time),
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(vertical = AppTheme.dimens.paddingMedium)
-                                )
-
-                                else -> CustomButton(
-                                    type = ButtonType.Primary,
-                                    text = stringResource(id = R.string.i_will_come),
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(vertical = AppTheme.dimens.paddingMedium)
-                                )
-                            }
-                        }
-                    }
-                    AnimatedVisibility(
-                        visible = mapIsVisible.value,
-                        enter = fadeIn(animationSpec = tween(ANIMATION_DURATION)) + expandIn(),
-                        exit = fadeOut(animationSpec = tween(ANIMATION_DURATION)) + shrinkOut()
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(Color.Black.copy(alpha = BACKGROUND_ALPHA)),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            AsyncImage(
-                                model = card.mapUrl,
-                                contentDescription = null,
-                                contentScale = ContentScale.Fit,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .zoomable(state = rememberZoomableState())
-                            )
-                        }
-                    }
-                }
+                MeetingDetailsContent(
+                    card = card,
+                    mapIsVisible = mapIsVisible.value,
+                    onMapClick = { mapIsVisible.value = true },
+                    innerPadding = innerPadding
+                )
             }
         )
     } else {
         Text(
             text = stringResource(id = R.string.meeting_not_found),
             style = AppTheme.typo.h1
+        )
+    }
+}
+
+@Composable
+fun MeetingDetailsContent(
+    card: MeetingData,
+    mapIsVisible: Boolean,
+    onMapClick: () -> Unit,
+    innerPadding: PaddingValues
+) {
+    Box(Modifier.fillMaxSize()) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    top = innerPadding.calculateTopPadding(),
+                    bottom = com.example.data.bottomNavBarPadding.dp + innerPadding.calculateBottomPadding(),
+                    start = AppTheme.dimens.paddingXXXLarge + innerPadding.calculateStartPadding(
+                        LayoutDirection.Ltr
+                    ),
+                    end = AppTheme.dimens.paddingXXXLarge + innerPadding.calculateEndPadding(
+                        LayoutDirection.Ltr
+                    )
+                )
+        ) {
+            item { MeetingHeader(card = card) }
+            item { MeetingMap(card = card, onMapClick = onMapClick) }
+            item { MeetingDescription(card = card) }
+            item { MeetingGuests(card = card) }
+            item { MeetingActionButton(card = card) }
+        }
+        AnimatedVisibility(
+            visible = mapIsVisible,
+            enter = fadeIn(animationSpec = tween(ANIMATION_DURATION)) + expandIn(),
+            exit = fadeOut(animationSpec = tween(ANIMATION_DURATION)) + shrinkOut()
+        ) {
+            MapOverlay(card = card)
+        }
+    }
+}
+
+@Composable
+fun MeetingHeader(card: MeetingData) {
+    Column(
+        modifier = Modifier
+            .padding(top = AppTheme.dimens.paddingXLarge)
+            .wrapContentSize()
+    ) {
+        Text(
+            text = card.dateAndPlace,
+            style = AppTheme.typo.bodyText1,
+            color = AppTheme.colors.neutralColorSecondaryText
+        )
+        Row {
+            card.chips.forEach { chipText ->
+                CustomChip(
+                    text = chipText,
+                    modifier = Modifier.padding(
+                        top = AppTheme.dimens.paddingSmall,
+                        end = AppTheme.dimens.paddingSmall
+                    )
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun MeetingMap(card: MeetingData, onMapClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = AppTheme.dimens.paddingLarge)
+            .clip(RoundedCornerShape(AppTheme.dimens.paddingXXLarge))
+            .clickable { onMapClick() }
+    ) {
+        AsyncImage(
+            model = card.mapUrl,
+            contentDescription = null,
+            modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.Fit
+        )
+    }
+}
+
+@Composable
+fun MeetingDescription(card: MeetingData) {
+    ExpandableText(
+        text = card.description ?: "",
+        style = AppTheme.typo.metadata1,
+        color = AppTheme.colors.neutralColorSecondaryText,
+        collapsedMaxLine = COLLAPSED_LINE,
+    )
+}
+
+@Composable
+fun MeetingGuests(card: MeetingData) {
+    LineWithPeople(
+        avatars = card.meetingGuests,
+        modifier = Modifier.padding(top = AppTheme.dimens.paddingXXLarge)
+    )
+}
+
+@Composable
+fun MeetingActionButton(card: MeetingData) {
+    val buttonType = if (card.isOver) ButtonType.Secondary else ButtonType.Primary
+    val buttonText = if (card.isOver) R.string.i_will_come_next_time else R.string.i_will_come
+
+    CustomButton(
+        type = buttonType,
+        text = stringResource(id = buttonText),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = AppTheme.dimens.paddingMedium)
+    )
+}
+
+@Composable
+fun MapOverlay(card: MeetingData) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = BACKGROUND_ALPHA)),
+        contentAlignment = Alignment.Center
+    ) {
+        AsyncImage(
+            model = card.mapUrl,
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .fillMaxSize()
+                .zoomable(state = rememberZoomableState())
         )
     }
 }

@@ -40,6 +40,7 @@ fun CommunityScreenDetails(
             topBar = {
                 NavigableTopBar(titleText = community.title)
             },
+            containerColor = AppTheme.colors.neutralColorForTopBar,
             content = { innerPadding ->
                 Box(Modifier.fillMaxSize()) {
                     LazyColumn(
